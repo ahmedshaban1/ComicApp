@@ -1,4 +1,4 @@
-package com.task.browse.ui.notifications
+package com.task.browse.presentation.ui.notifications
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.task.browse.R
 import com.task.browse.databinding.FragmentNotificationsBinding
 
 class NotificationsFragment : Fragment() {

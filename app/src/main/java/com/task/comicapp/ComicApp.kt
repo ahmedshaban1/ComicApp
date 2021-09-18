@@ -1,6 +1,7 @@
 package com.task.comicapp
 
 import android.app.Application
+import com.task.browse.di.homeModule
 import com.task.local.di.localModule
 import com.task.remote.di.getRemoteModule
 import org.koin.android.ext.koin.androidContext
@@ -13,7 +14,7 @@ class ComicApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@ComicApp)
-            modules(listOf(getRemoteModule("http://xkcd.com/"),localModule))
+            modules(listOf(getRemoteModule("http://xkcd.com/"),localModule,homeModule))
         }
     }
 

@@ -64,4 +64,9 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), UiCommunica
         )
         return dialog
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

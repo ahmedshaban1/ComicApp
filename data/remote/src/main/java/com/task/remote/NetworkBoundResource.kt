@@ -2,11 +2,13 @@ package com.task.remote
 
 import com.task.remote.data.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onStart
 
 
+@ExperimentalCoroutinesApi
 abstract class NetworkBoundResource<T> {
 
     fun asFlow(): Flow<Resource<T>> = flow {

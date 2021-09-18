@@ -1,4 +1,4 @@
-package com.task.browse.ui.home
+package com.task.browse.presentation.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
