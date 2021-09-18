@@ -76,7 +76,7 @@ object LibraryDependency {
         const val coroutines = "1.1.1"
         const val lifecycle = "2.1.0-alpha04"
         const val livedata_version = "2.2.0-rc02"
-        const val room = "2.1.0-alpha06"
+        const val room = "2.3.0"
         const val recyclerview = "1.0.0"
         const val archCoreTest = "2.1.0"
         const val mockk = "1.9.2"
@@ -148,8 +148,8 @@ object ModulesDependency {
 
 object FeaturesDependency {
     const val prefix = ":features:"
-    const val Splash = "${prefix}browse"
-    const val Home = "${prefix}details"
+    const val browse = "${prefix}browse"
+    const val comicDetails = "${prefix}details"
 }
 
 object TestLibraryDependency {

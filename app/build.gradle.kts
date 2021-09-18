@@ -6,6 +6,8 @@ plugins {
 dependencies {
     commonDevelopmentDependencies()
     api(project(ModulesDependency.COMMON))
+    implementation(project(FeaturesDependency.browse))
+
 
 
 }

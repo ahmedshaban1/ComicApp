@@ -1,7 +1,7 @@
-package com.task.comicapp
+package com.task.browse
 
 import android.view.LayoutInflater
-import com.task.comicapp.databinding.ActivityMainBinding
+import com.task.browse.databinding.ActivityMainBinding
 import com.task.common.BaseActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -11,8 +11,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         get() = ActivityMainBinding::inflate
 
     override fun setUp() {
-
-
     }
 
 
