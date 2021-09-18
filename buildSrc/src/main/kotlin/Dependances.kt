@@ -64,7 +64,7 @@ object LibraryDependency {
     object Version {
         const val SUPPORT_LIB = "1.1.0"
         const val CONSTRAINT = "1.1.3"
-        const val KOIN = "3.1.2"
+        const val KOIN = "2.2.3"
         val kotlin = "1.3.21"
         val gradle = "3.3.2"
         const val coreKtx = "1.1.0-alpha04"
@@ -97,9 +97,9 @@ object LibraryDependency {
 
     const val ROUNDED_IMAGE_VIEW = "com.makeramen:roundedimageview:${Version.ROUNDED_IMAGE}"
     const val NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:${CoreVersion.NAVIGATION}"
-    const val KOIN = "org.koin:koin-android:${Version.KOIN}"
-    const val KOIN_VIEWMODEL = "org.koin:koin-androidx-viewmodel:${Version.KOIN}"
-    const val KOIN_SCOPE = "org.koin:koin-androidx-scope:${Version.KOIN}"
+    const val KOIN = "io.insert-koin:koin-android:${Version.KOIN}"
+    const val KOIN_VIEWMODEL = "io.insert-koin:koin-androidx-viewmodel:${Version.KOIN}"
+    const val KOIN_SCOPE = "io.insert-koin:koin-androidx-scope:${Version.KOIN}"
     const val PICASSO = "com.squareup.picasso:picasso:${Version.PICASSO}"
     const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:${Version.recyclerview}"
 

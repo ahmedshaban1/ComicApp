@@ -8,3 +8,6 @@ dependencyResolutionManagement {
 rootProject.name = "ComicApp"
 include ':app'
 include ':libraries:common'
+include ':data:local'
+include ':data:remote'
+include ':data:model'
