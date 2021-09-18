@@ -6,14 +6,18 @@ plugins {
 }
 
 dependencies {
+    implementation(LibraryDependency.NAVIGATION_FRAGMENT)
+    implementation(LibraryDependency.NAVIGATION_UI)
     localRoomDependencies()
-    implementation(project(ModulesDependency.COMMON))
-    implementation(project(ModulesDependency.REMOTE))
-    implementation(project(ModulesDependency.MODEL))
-    implementation(project(ModulesDependency.LOCAL))
+    api(project(ModulesDependency.COMMON))
+    api(project(ModulesDependency.REMOTE))
+    api(project(ModulesDependency.MODEL))
+    api(project(ModulesDependency.LOCAL))
+
     //implementation(project(ModulesDependency.UI))
 
     //addTestDependencies()
 
 
 }
+

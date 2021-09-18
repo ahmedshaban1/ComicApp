@@ -66,10 +66,7 @@ fun DependencyHandler.localRoomDependencies() {
     api(LibraryDependency.roomRunTime)
 }
 
-fun DependencyHandler.navigationDependencies() {
-    api(LibraryDependency.NAVIGATION_FRAGMENT)
-    api(LibraryDependency.NAVIGATION_UI)
-}
+
 
 
 /*
