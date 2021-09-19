@@ -12,7 +12,7 @@ interface ComicDao {
     @Query("select * from Comic order by num DESC limit 1 ")
     suspend fun getComic(): Comic
 
-    @Query("select * from Comic")
+    @Query("select * from Comic order by num DESC")
     suspend fun getAllComics(): List<Comic>
 
     @Query("select * from Comic where isFavorite=1")

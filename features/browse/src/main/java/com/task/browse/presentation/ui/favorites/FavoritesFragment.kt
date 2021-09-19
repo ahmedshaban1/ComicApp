@@ -10,7 +10,6 @@ import com.task.browse.presentation.ui.ComicsViewModel
 import com.task.common.BaseFragment
 import com.task.common.visible
 import com.task.model.Comic
-import com.task.remote.data.Resource
 import com.task.remote.data.Resource.Status.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,9 +27,9 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
         viewModel.getFavoritesComics()
     }
 
-    private fun intRv(){
-        with(binding.favoritesRv){
-            layoutManager = LinearLayoutManager(requireContext())
+    private fun intRv() {
+        with(binding.favoritesRv) {
+            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
             adapter = comicsAdapter
         }
     }
@@ -38,17 +37,19 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
     private fun initFavoritesComicsObservable() {
         viewModel.favoritesComicStateFlow.asLiveData().observe(viewLifecycleOwner, {
             when (it.status) {
-                LOADING -> {}
+                LOADING -> {
+                }
                 SUCCESS -> it.data?.let { validateList(it) }
-                ERROR -> {}
+                ERROR -> {
+                }
             }
         })
 
     }
 
     private fun validateList(favComics: List<Comic>) {
-        if(favComics.isNotEmpty())
-        comicsAdapter.submitList(favComics)
+        if (favComics.isNotEmpty())
+            comicsAdapter.submitList(favComics)
         else
             binding.errorTv.visible()
     }

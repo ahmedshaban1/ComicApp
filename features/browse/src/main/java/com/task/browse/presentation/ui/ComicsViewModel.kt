@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.task.browse.domain.GetComicsUseCase
 import com.task.browse.domain.GetFavoriteComicsUseCase
+import com.task.browse.domain.GetPreviousComicUseCase
 import com.task.browse.domain.SearchComicsUseCase
 import com.task.model.Comic
 import com.task.remote.data.Resource
@@ -12,12 +13,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class ComicsViewModel(private val getComicsUseCase: GetComicsUseCase, private val searchComicsUseCase: SearchComicsUseCase, private val getFavoritesComicsUseCase: GetFavoriteComicsUseCase) : ViewModel() {
+class ComicsViewModel(private val getComicsUseCase: GetComicsUseCase, private val searchComicsUseCase: SearchComicsUseCase, private val getFavoritesComicsUseCase: GetFavoriteComicsUseCase,private val  getPreviousComicUseCase: GetPreviousComicUseCase) : ViewModel() {
 
-    private val _getComicsStateFlow: MutableStateFlow<Resource<Comic>> =
+    private val _getComicsStateFlow: MutableStateFlow<Resource<List<Comic>>> =
         MutableStateFlow(Resource.loading(data = null))
 
-    val comicsStateFlow: StateFlow<Resource<Comic>> = _getComicsStateFlow
+    val comicsStateFlow: StateFlow<Resource<List<Comic>>> = _getComicsStateFlow
 
 
     private val _getFavoriteComicsStateFlow: MutableStateFlow<Resource<List<Comic>>> =
@@ -29,6 +30,11 @@ class ComicsViewModel(private val getComicsUseCase: GetComicsUseCase, private va
         MutableStateFlow(Resource.loading(data = null))
 
     val searchComicStateFlow: StateFlow<Resource<List<Comic>>> = _searchComicsStateFlow
+
+    private val _previousComicStateFlow: MutableStateFlow<Resource<Comic>> =
+        MutableStateFlow(Resource.loading(data = null))
+
+    val previousComicStateFlow: StateFlow<Resource<Comic>> = _previousComicStateFlow
 
     fun getComics() {
         viewModelScope.launch {
@@ -53,6 +59,15 @@ class ComicsViewModel(private val getComicsUseCase: GetComicsUseCase, private va
             searchComicsUseCase(query)
                 .collect {
                     _searchComicsStateFlow.value = it
+                }
+        }
+    }
+
+    fun getPreviousComic(comicNumber: Int) {
+        viewModelScope.launch {
+            getPreviousComicUseCase(comicNumber)
+                .collect {
+                    _previousComicStateFlow.value = it
                 }
         }
     }

@@ -6,11 +6,9 @@ import com.task.browse.data.datasource.local.ComicLocalDataSource
 import com.task.browse.data.datasource.local.ComicLocalDataSourceImpl
 import com.task.browse.data.datasource.remote.ComicRemoteDataSource
 import com.task.browse.data.datasource.remote.ComicRemoteDataSourceImpl
-import com.task.browse.domain.ComicRepository
-import com.task.browse.domain.GetComicsUseCase
-import com.task.browse.domain.GetFavoriteComicsUseCase
-import com.task.browse.domain.SearchComicsUseCase
+import com.task.browse.domain.*
 import com.task.browse.presentation.ui.ComicsViewModel
+import com.task.model.comic.ComicMapper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -18,7 +16,7 @@ import retrofit2.Retrofit
 
 @ExperimentalCoroutinesApi
 val comicModule = module {
-    viewModel { ComicsViewModel(get(),get() ,get()) }
+    viewModel { ComicsViewModel(get(), get(), get(), get()) }
 
     factory {
         GetComicsUseCase(get())
@@ -27,6 +25,9 @@ val comicModule = module {
         GetFavoriteComicsUseCase(get())
     }
 
+    factory {
+        GetPreviousComicUseCase(get())
+    }
     factory {
         SearchComicsUseCase(get())
     }
@@ -42,7 +43,11 @@ val comicModule = module {
 
 
     single<ComicRepository> {
-        ComicRepositoryImpl(get(), get())
+        ComicRepositoryImpl(get(), get(),get())
+    }
+
+    single {
+        ComicMapper()
     }
 
     single {

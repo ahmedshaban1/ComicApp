@@ -17,16 +17,17 @@ import kotlinx.coroutines.flow.map
 @ExperimentalCoroutinesApi
 class ComicRepositoryImpl(
     val remoteDataSource: ComicRemoteDataSource,
-    val localDataSource: ComicLocalDataSource
+    val localDataSource: ComicLocalDataSource,
+    val comicMapper:ComicMapper
 ) : ComicRepository {
-    override fun getComics(): Flow<Resource<Comic>> {
+    override fun getLastComic(): Flow<Resource<Comic>> {
         return object : NetworkBoundResource<ComicRemote>() {
             override suspend fun remoteFetch(): ComicRemote {
                 return remoteDataSource.getLastComic()
             }
 
             override suspend fun saveFetchResult(data: ComicRemote) {
-                localDataSource.saveComic(ComicMapper().mapToEntity(data))
+                localDataSource.saveComic(comicMapper.mapToEntity(data))
             }
 
             override suspend fun localFetch(): ComicRemote {
@@ -70,10 +71,43 @@ class ComicRepositoryImpl(
         }.asFlow()
     }
 
+    override fun getAllComics(): Flow<Resource<List<Comic>>> {
+        return object : NetworkBoundResource<List<Comic>>(){
+            override suspend fun remoteFetch(): List<Comic> {
+                return listOf()
+            }
+
+            override suspend fun saveFetchResult(data: List<Comic>) {
+            }
+
+            override suspend fun localFetch(): List<Comic> {
+                return localDataSource.getAllComics()
+            }
+
+            override fun shouldFetch() = false
+        }.asFlow()
+    }
+
+    override fun getPreviousComic(comicNumber: Int): Flow<Resource<Comic>> {
+        return object : NetworkBoundResource<ComicRemote>(){
+            override suspend fun remoteFetch(): ComicRemote {
+                return remoteDataSource.getPreviousComic(comicNumber)
+            }
+
+            override suspend fun saveFetchResult(data: ComicRemote) {
+                localDataSource.saveComic(comicMapper.mapToEntity(data))
+            }
+
+            override suspend fun localFetch(): ComicRemote {
+                return null!!
+            }
+        }.asFlow().flatMapLatest {data->map(data) }
+    }
+
 
     private fun map(data: Resource<ComicRemote>): Flow<Resource<Comic>> {
         return flow {
-            val comic =  data.data?.let { ComicMapper().mapToEntity(it)}
+            val comic =  data.data?.let { comicMapper.mapToEntity(it)}
             emit(Resource(status = data.status, data = comic, messageType = data.messageType))
         }
     }

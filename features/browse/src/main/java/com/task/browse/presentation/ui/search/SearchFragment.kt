@@ -2,8 +2,7 @@ package com.task.browse.presentation.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.SearchView
-import androidx.appcompat.widget.SearchView.*
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.task.browse.databinding.FragmentSearchBinding
@@ -30,7 +29,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun initSearchInput() {
-        with(binding.searchET){
+        with(binding.searchET) {
             setIconifiedByDefault(true)
             isFocusable = true
             isIconified = false
@@ -38,41 +37,44 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             requestFocusFromTouch()
         }
 
-       binding.searchET.setOnQueryTextListener(object : OnQueryTextListener {
-           override fun onQueryTextSubmit(query: String): Boolean {
-               viewModel.search(query)
-               return false
-           }
+        binding.searchET.setOnQueryTextListener(object : OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                viewModel.search(query)
+                return false
+            }
 
-           override fun onQueryTextChange(newText: String): Boolean {
-               if(newText.isEmpty()){
-                   comicsAdapter.submitList(listOf())
-               }
-               return false
-           }
-       })
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isEmpty()) {
+                    comicsAdapter.submitList(listOf())
+                }
+                return false
+            }
+        })
     }
 
     private fun initFavoritesComicsObservable() {
         viewModel.searchComicStateFlow.asLiveData().observe(viewLifecycleOwner, {
             when (it.status) {
-                Resource.Status.LOADING -> {}
+                Resource.Status.LOADING -> {
+                }
                 Resource.Status.SUCCESS -> it.data?.let { validateList(it) }
-                Resource.Status.ERROR -> {}
+                Resource.Status.ERROR -> {
+                }
             }
         })
     }
 
     private fun validateList(searchList: List<Comic>) {
-        if(searchList.isNotEmpty())
+        if (searchList.isNotEmpty())
             comicsAdapter.submitList(searchList)
         else
             binding.errorTv.visible()
     }
 
     private fun intRv() {
-        with(binding.searchResultsRv){
-            layoutManager = LinearLayoutManager(requireContext())
+        with(binding.searchResultsRv) {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = comicsAdapter
         }
     }

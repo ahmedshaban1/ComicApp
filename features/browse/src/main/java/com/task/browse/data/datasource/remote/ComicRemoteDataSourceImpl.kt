@@ -7,4 +7,8 @@ class ComicRemoteDataSourceImpl(val remote: ComicAPIService):ComicRemoteDataSour
     override suspend fun getLastComic(): ComicRemote {
         return remote.getLastComic()
     }
+
+    override suspend fun getPreviousComic(comicNumber: Int): ComicRemote {
+        return remote.getPreviousComic(comicNumber)
+    }
 }

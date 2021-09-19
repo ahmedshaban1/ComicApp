@@ -2,36 +2,94 @@ package com.task.browse.presentation.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.task.browse.databinding.FragmentHomeBinding
+import com.task.browse.presentation.ui.ComicsAdapter
 import com.task.browse.presentation.ui.ComicsViewModel
 import com.task.common.BaseFragment
+import com.task.model.Comic
 import com.task.remote.data.Resource
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: ComicsViewModel by viewModel()
+    private val comicsAdapter: ComicsAdapter by lazy {
+        ComicsAdapter()
+    }
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
     override fun setup() {
-        viewModel.comicsStateFlow.asLiveData().observe(viewLifecycleOwner,{
+        intRv()
+        initGetComicsObservable()
+        initGetPreviousComicLogic()
+        initGetPreviousComicObservable()
+        viewModel.getComics()
+    }
+
+    private fun initGetPreviousComicObservable() {
+        viewModel.previousComicStateFlow.asLiveData().observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.LOADING -> {
-                    binding.textHome.append("Loading")
+                    uiCommunicator?.showLoading()
                 }
                 Resource.Status.SUCCESS -> {
-                    binding.textHome.append(it.data?.title)
+                    uiCommunicator?.hideLoading()
+                    it.data?.let { comic ->
+                        comicsAdapter.add(comic)
+                        binding.comicsRv.smoothScrollToPosition(comicsAdapter.itemCount)
+                    }
                 }
                 Resource.Status.ERROR -> {
-                    binding.textHome.append("error")
+                    it.messageType?.let { it1 -> uiCommunicator?.handleMessages(it1) }
                 }
             }
         })
+    }
 
-        viewModel.getComics()
+
+    private fun initGetComicsObservable() {
+        viewModel.comicsStateFlow.asLiveData().observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    uiCommunicator?.showLoading()
+                }
+                Resource.Status.SUCCESS -> {
+                    uiCommunicator?.hideLoading()
+                    it.data?.let { comics ->
+                        validateList(comics)
+                    }
+                }
+                Resource.Status.ERROR -> {
+                    it.messageType?.let { it1 -> uiCommunicator?.handleMessages(it1) }
+                }
+            }
+        })
+    }
+
+    private fun intRv() {
+        with(binding.comicsRv) {
+            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            adapter = comicsAdapter
+        }
+    }
+
+    private fun validateList(comics: List<Comic>) {
+        comicsAdapter.submitList(comics)
+        initGetPreviousComicLogic()
+    }
+    private fun initGetPreviousComicLogic() {
+        viewModel.comicsStateFlow.value.data?.let {
+            var lastNumber = comicsAdapter.getLastItemNumber()
+            if(lastNumber!=-1){
+                binding.previousComicBtn.setOnClickListener {
+                    viewModel.getPreviousComic(--lastNumber)
+                }
+
+            }
+        }
     }
 
 }

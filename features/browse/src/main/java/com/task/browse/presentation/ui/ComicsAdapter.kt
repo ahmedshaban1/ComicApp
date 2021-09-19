@@ -1,5 +1,6 @@
 package com.task.browse.presentation.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -9,21 +10,9 @@ import com.task.browse.databinding.ComicCoverItemBinding
 import com.task.common.loadImage
 import com.task.model.Comic
 
-class ComicsAdapter(private val interaction: Interaction? = null) :
+class ComicsAdapter(private val dataList: ArrayList<Comic> = arrayListOf(), private val interaction: Interaction? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Comic>() {
-
-        override fun areItemsTheSame(oldItem: Comic, newItem: Comic): Boolean {
-            return oldItem.num == newItem.num
-        }
-
-        override fun areContentsTheSame(oldItem: Comic, newItem: Comic): Boolean {
-            return oldItem.num == newItem.num
-        }
-
-    }
-    private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -41,18 +30,33 @@ class ComicsAdapter(private val interaction: Interaction? = null) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ComicsAdapterVH -> {
-                holder.bind(differ.currentList.get(position))
+                holder.bind(dataList[position])
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return differ.currentList.size
+        return dataList.size
     }
 
-    fun submitList(list: List<Comic>) {
-        differ.submitList(list)
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(newList: List<Comic>) {
+        dataList.clear()
+        dataList.addAll(newList)
+        notifyDataSetChanged()
     }
+
+    fun getLastItemNumber(): Int {
+        return if(dataList.isEmpty()) -1
+        else dataList.last().num
+
+    }
+
+    fun add(newComic: Comic) {
+        dataList.add(newComic)
+        notifyItemInserted(dataList.size-1)
+    }
+
 
     class ComicsAdapterVH
     constructor(

@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 
@@ -36,7 +37,9 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), UiCommunica
         messageType.message?.let { message = it }
         when (messageType) {
             is MessageType.SnackBar -> TODO()
-            is MessageType.Dialog -> TODO()
+            is MessageType.Dialog -> {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            }
             is MessageType.None -> TODO()
             is MessageType.Toast -> TODO()
         }
