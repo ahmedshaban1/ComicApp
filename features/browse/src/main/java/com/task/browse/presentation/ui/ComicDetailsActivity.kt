@@ -12,9 +12,9 @@ import com.task.remote.data.Resource.Status.SUCCESS
 import org.koin.android.ext.android.inject
 
 class ComicDetailsActivity : BaseActivity<ActivityComicDetailsBinding>() {
-    val viewModel: ComicsViewModel by inject()
+    private val viewModel: ComicsViewModel by inject()
     private val comicNumber: Int by lazy {
-        intent?.getIntExtra(COMICNUMBER, 2517) ?: 2517
+        intent?.getIntExtra(COMICNUMBER, 0) ?: 0
     }
 
     override fun setUp() {

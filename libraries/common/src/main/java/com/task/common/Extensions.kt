@@ -1,5 +1,6 @@
 package com.task.common
 
+import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import com.squareup.picasso.Picasso
 import android.content.Intent
 import android.icu.text.CaseMap
 import android.net.Uri
+import android.os.Bundle
 import com.task.common.Constants.EXPLORATIONURL
 
 
@@ -61,5 +63,20 @@ fun AppCompatActivity.shareData(title: String, imageUrl: String,description:Stri
         type = "image/jpeg"
     }
     startActivity(Intent.createChooser(shareIntent, resources.getText(R.string.send_to)))
+
+}
+
+
+fun Context.openActivity(className: Class<*>, bundle: Bundle? = null, closeAll: Boolean = false) {
+
+    val intent = Intent(this, className)
+    bundle?.let {
+        intent.putExtras(it)
+    }
+
+    if (closeAll) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    }
+    startActivity(intent)
 
 }
