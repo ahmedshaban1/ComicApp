@@ -66,6 +66,7 @@ class ComicsAdapter(private val dataList: ArrayList<Comic> = arrayListOf(), priv
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(comic: Comic) = with(itemView) {
             binding.comicImage.loadImage(comic.img)
+            binding.comicTitleTv.text = comic.title
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, comic)
             }
