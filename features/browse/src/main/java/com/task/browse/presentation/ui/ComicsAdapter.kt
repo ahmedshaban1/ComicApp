@@ -21,6 +21,7 @@ class ComicsAdapter(private val dataList: ArrayList<Comic> = arrayListOf(), priv
             parent,
             false
         )
+        binding.root.layoutParams = ViewGroup.LayoutParams((parent.width * 0.9).toInt(),ViewGroup.LayoutParams.MATCH_PARENT)
         return ComicsAdapterVH(
             binding,
             interaction
