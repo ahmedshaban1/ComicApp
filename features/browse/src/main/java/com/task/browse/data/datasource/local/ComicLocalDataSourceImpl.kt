@@ -37,4 +37,8 @@ class ComicLocalDataSourceImpl(private val local: ComicDao) : ComicLocalDataSour
     override suspend fun getFavoritesComics(): List<Comic> {
         return local.getFavoritesComics()
     }
+
+    override suspend fun searchComics(query: String): List<Comic> {
+        return local.searchComics(query)
+    }
 }

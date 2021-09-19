@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:id="@+id/errorTv"
-        android:text="@string/you_don_t_have_any_favorites_comics"
+        android:text="@string/no_search_results_found"
         android:textColor="@android:color/darker_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

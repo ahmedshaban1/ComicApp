@@ -1,12 +1,15 @@
 package com.task.comicapp
 
 import android.app.Application
-import com.task.browse.di.homeModule
+import com.task.browse.di.comicModule
 import com.task.local.di.localModule
 import com.task.remote.di.getRemoteModule
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+
+@ExperimentalCoroutinesApi
 class ComicApp : Application() {
     override fun onCreate() {
         super.onCreate()
@@ -14,7 +17,7 @@ class ComicApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@ComicApp)
-            modules(listOf(getRemoteModule("http://xkcd.com/"),localModule,homeModule))
+            modules(listOf(getRemoteModule("http://xkcd.com/"), localModule, comicModule))
         }
     }
 

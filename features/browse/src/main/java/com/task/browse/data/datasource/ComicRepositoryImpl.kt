@@ -53,6 +53,23 @@ class ComicRepositoryImpl(
         }.asFlow()
     }
 
+    override fun searchComics(query: String): Flow<Resource<List<Comic>>> {
+        return object : NetworkBoundResource<List<Comic>>(){
+            override suspend fun remoteFetch(): List<Comic> {
+                return listOf()
+            }
+
+            override suspend fun saveFetchResult(data: List<Comic>) {
+            }
+
+            override suspend fun localFetch(): List<Comic> {
+                return localDataSource.searchComics(query)
+            }
+
+            override fun shouldFetch() = false
+        }.asFlow()
+    }
+
 
     private fun map(data: Resource<ComicRemote>): Flow<Resource<Comic>> {
         return flow {

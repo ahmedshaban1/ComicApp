@@ -10,6 +10,7 @@ import com.task.browse.presentation.ui.ComicsViewModel
 import com.task.common.BaseFragment
 import com.task.common.visible
 import com.task.model.Comic
+import com.task.remote.data.Resource
 import com.task.remote.data.Resource.Status.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -37,16 +38,9 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
     private fun initFavoritesComicsObservable() {
         viewModel.favoritesComicStateFlow.asLiveData().observe(viewLifecycleOwner, {
             when (it.status) {
-                LOADING -> {
-                }
-                SUCCESS -> {
-                    it.data?.let {
-                        validateList(it)
-
-                    }
-                }
-                ERROR -> {
-                }
+                LOADING -> {}
+                SUCCESS -> it.data?.let { validateList(it) }
+                ERROR -> {}
             }
         })
 

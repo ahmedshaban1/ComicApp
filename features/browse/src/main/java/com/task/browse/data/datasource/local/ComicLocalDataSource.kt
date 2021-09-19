@@ -7,4 +7,5 @@ interface ComicLocalDataSource {
     suspend fun getLastComic(): Comic
     suspend fun saveComic(comic: Comic)
     suspend fun getFavoritesComics(): List<Comic>
+    suspend fun searchComics(query: String): List<Comic>
 }

@@ -34,4 +34,8 @@ interface ComicDao {
         year: String
     )
 
+
+    @Query("select * from Comic where num  LIKE '%' || :query || '%' or  title  LIKE '%' || :query || '%' or safeTitle  LIKE '%' || :query || '%'")
+    suspend fun searchComics(query: String): List<Comic>
+
 }
