@@ -28,11 +28,19 @@ data class Resource<out T>(val status: Status, val data: T?, val messageType: Me
                 null
             )
         }
+        fun <T> init(): Resource<T> {
+            return Resource(
+                Status.INIT,
+                null,
+                null
+            )
+        }
     }
 
     enum class Status {
         SUCCESS,
         ERROR,
-        LOADING
+        LOADING,
+        INIT
     }
 }

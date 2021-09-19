@@ -16,23 +16,23 @@ import kotlinx.coroutines.launch
 class ComicsViewModel(private val getComicsUseCase: GetComicsUseCase, private val searchComicsUseCase: SearchComicsUseCase, private val getFavoritesComicsUseCase: GetFavoriteComicsUseCase,private val  getPreviousComicUseCase: GetPreviousComicUseCase) : ViewModel() {
 
     private val _getComicsStateFlow: MutableStateFlow<Resource<List<Comic>>> =
-        MutableStateFlow(Resource.loading(data = null))
+        MutableStateFlow(Resource.init())
 
     val comicsStateFlow: StateFlow<Resource<List<Comic>>> = _getComicsStateFlow
 
 
     private val _getFavoriteComicsStateFlow: MutableStateFlow<Resource<List<Comic>>> =
-        MutableStateFlow(Resource.loading(data = null))
+        MutableStateFlow(Resource.init())
 
     val favoritesComicStateFlow: StateFlow<Resource<List<Comic>>> = _getFavoriteComicsStateFlow
 
     private val _searchComicsStateFlow: MutableStateFlow<Resource<List<Comic>>> =
-        MutableStateFlow(Resource.loading(data = null))
+        MutableStateFlow(Resource.init())
 
     val searchComicStateFlow: StateFlow<Resource<List<Comic>>> = _searchComicsStateFlow
 
     private val _previousComicStateFlow: MutableStateFlow<Resource<Comic>> =
-        MutableStateFlow(Resource.loading(data = null))
+        MutableStateFlow(Resource.init())
 
     val previousComicStateFlow: StateFlow<Resource<Comic>> = _previousComicStateFlow
 
