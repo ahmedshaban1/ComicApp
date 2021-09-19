@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.task.browse.presentation.ui.dashboard.DashboardFragment"
+        android:name="com.task.browse.presentation.ui.favorites.FavoritesFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_favorites" />
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.task.browse.presentation.ui.notifications.NotificationsFragment"
+        android:name="com.task.browse.presentation.ui.search.SearchFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_search" />
 </navigation>

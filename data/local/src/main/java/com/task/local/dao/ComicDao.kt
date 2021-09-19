@@ -14,4 +14,24 @@ interface ComicDao {
 
     @Query("select * from Comic")
     suspend fun getAllComics(): List<Comic>
+
+    @Query("select * from Comic where isFavorite=1")
+    suspend fun getFavoritesComics(): List<Comic>
+
+    @Query("select COUNT(num) from Comic where num=:comicNumber limit 1")
+    suspend fun getComicByNumber(comicNumber: Int): Int
+
+    @Query("UPDATE comic set day=:day , img=:img,link=:link,month=:month,news=:news,safeTitle=:safeTitle,title=:title,transcript=:transcript,year=:year where num=:comicNumber")
+    suspend fun update(
+        comicNumber: Int, day: String,
+        img: String,
+        link: String,
+        month: String,
+        news: String,
+        safeTitle: String,
+        title: String,
+        transcript: String,
+        year: String
+    )
+
 }

@@ -43,5 +43,6 @@ data class Comic(
     var safeTitle: String,
     var title: String,
     var transcript: String,
-    var year: String
+    var year: String,
+    var isFavorite:Boolean = false
 )
