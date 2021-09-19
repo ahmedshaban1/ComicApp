@@ -15,7 +15,7 @@ interface ComicDao {
     @Query("select * from Comic order by num DESC")
     suspend fun getAllComics(): List<Comic>
 
-    @Query("select * from Comic where isFavorite=1")
+    @Query("select * from Comic where isFavorite=1 order by num DESC")
     suspend fun getFavoritesComics(): List<Comic>
 
     @Query("select COUNT(num) from Comic where num=:comicNumber limit 1")
@@ -35,7 +35,7 @@ interface ComicDao {
     )
 
 
-    @Query("select * from Comic where num  LIKE '%' || :query || '%' or  title  LIKE '%' || :query || '%' or safeTitle  LIKE '%' || :query || '%'")
+    @Query("select * from Comic where num  LIKE '%' || :query || '%' or  title  LIKE '%' || :query || '%' or safeTitle  LIKE '%' || :query || '%' order by num DESC")
     suspend fun searchComics(query: String): List<Comic>
 
 }
