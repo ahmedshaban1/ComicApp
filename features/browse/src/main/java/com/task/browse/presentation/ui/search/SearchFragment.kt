@@ -2,6 +2,8 @@ package com.task.browse.presentation.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.appcompat.widget.SearchView.*
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.task.browse.databinding.FragmentSearchBinding
@@ -24,7 +26,31 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override fun setup() {
         intRv()
         initFavoritesComicsObservable()
-        viewModel.search("10")
+        initSearchInput()
+    }
+
+    private fun initSearchInput() {
+        with(binding.searchET){
+            setIconifiedByDefault(true)
+            isFocusable = true
+            isIconified = false
+            clearFocus()
+            requestFocusFromTouch()
+        }
+
+       binding.searchET.setOnQueryTextListener(object : OnQueryTextListener {
+           override fun onQueryTextSubmit(query: String): Boolean {
+               viewModel.search(query)
+               return false
+           }
+
+           override fun onQueryTextChange(newText: String): Boolean {
+               if(newText.isEmpty()){
+                   comicsAdapter.submitList(listOf())
+               }
+               return false
+           }
+       })
     }
 
     private fun initFavoritesComicsObservable() {
