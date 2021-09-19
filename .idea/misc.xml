@@ -12,6 +12,8 @@
         <entry key="..\:/flutterProjects/ComicApp/features/browse/src/main/res/layout/comic_cover_item.xml" value="0.3546875" />
         <entry key="..\:/flutterProjects/ComicApp/features/browse/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="..\:/flutterProjects/ComicApp/features/browse/src/main/res/layout/fragment_favorites.xml" value="0.3546875" />
+        <entry key="..\:/flutterProjects/ComicApp/features/browse/src/main/res/layout/fragment_home.xml" value="0.3546875" />
+        <entry key="..\:/flutterProjects/ComicApp/features/browse/src/main/res/layout/fragment_search.xml" value="0.3546875" />
         <entry key="..\:/flutterProjects/ComicApp/features/browse/src/main/res/menu/bottom_nav_menu.xml" value="0.3546875" />
         <entry key="..\:/flutterProjects/ComicApp/libraries/common/src/main/res/layout/progress_dialog.xml" value="0.234375" />
       </map>

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.task.browse.databinding.ComicCoverItemBinding
+import com.task.common.loadImage
 import com.task.model.Comic
 
 class ComicsAdapter(private val interaction: Interaction? = null) :
@@ -59,7 +60,7 @@ class ComicsAdapter(private val interaction: Interaction? = null) :
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(comic: Comic) = with(itemView) {
-            binding.comicTitleTv.text = comic.title
+            binding.comicImage.loadImage(comic.img)
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, comic)
             }

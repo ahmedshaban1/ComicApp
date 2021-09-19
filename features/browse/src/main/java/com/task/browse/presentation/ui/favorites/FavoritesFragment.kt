@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.task.browse.databinding.FragmentFavoritesBinding
 import com.task.browse.presentation.ui.ComicsAdapter
 import com.task.browse.presentation.ui.ComicsViewModel
 import com.task.common.BaseFragment
+import com.task.common.visible
+import com.task.model.Comic
 import com.task.remote.data.Resource.Status.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -40,7 +41,8 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
                 }
                 SUCCESS -> {
                     it.data?.let {
-                        comicsAdapter.submitList(it)
+                        validateList(it)
+
                     }
                 }
                 ERROR -> {
@@ -48,5 +50,12 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
             }
         })
 
+    }
+
+    private fun validateList(favComics: List<Comic>) {
+        if(favComics.isNotEmpty())
+        comicsAdapter.submitList(favComics)
+        else
+            binding.errorTv.visible()
     }
 }
