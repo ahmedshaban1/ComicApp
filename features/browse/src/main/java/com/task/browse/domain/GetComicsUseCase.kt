@@ -17,8 +17,8 @@ class GetComicsUseCase(private val repository: ComicRepository) {
                     f1.data?.toMutableList()?.add(0,f2.data!!)
                     Resource.success(f1.data)
                 }
-            } else if (f2.status == ERROR)
-                Resource.error(error = f2.messageType!!,data = null)
+            } else if (f2.status == ERROR && f1.status == SUCCESS)
+                Resource.success(data = f1.data)
             else f1
         }
     }

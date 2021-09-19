@@ -33,10 +33,13 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), UiCommunica
     }
 
     override fun handleMessages(messageType: MessageType) {
+        hideLoading()
         var message = ErrorMessageHelper.getMessage(messageType.code)
         messageType.message?.let { message = it }
         when (messageType) {
-            is MessageType.SnackBar -> TODO()
+            is MessageType.SnackBar -> {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            }
             is MessageType.Dialog -> {
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             }
