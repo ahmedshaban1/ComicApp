@@ -45,4 +45,8 @@ class ComicLocalDataSourceImpl(private val local: ComicDao) : ComicLocalDataSour
     override suspend fun getComicByNumber(comicNumber: Int): Comic {
         return local.getComicByNumber(comicNumber)
     }
+
+    override suspend fun updateFavorite(favorite: Boolean, comicNumber: Int) {
+       local.updateFavorite(favorite,comicNumber)
+    }
 }

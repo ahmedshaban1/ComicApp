@@ -11,4 +11,5 @@ interface ComicRepository {
     fun getAllComics(): Flow<Resource<List<Comic>>>
     fun getPreviousComic(comicNumber: Int): Flow<Resource<Comic>>
     fun getComicByNumber(comicNumber: Int): Flow<Resource<Comic>>
+    fun updateFavorite(favorite: Boolean, comicNumber: Int)
 }

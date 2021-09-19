@@ -6,9 +6,12 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.icu.text.CaseMap
 import android.net.Uri
 import android.os.Bundle
+import androidx.core.content.ContextCompat
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.task.common.Constants.EXPLORATIONURL
 
 
@@ -78,5 +81,26 @@ fun Context.openActivity(className: Class<*>, bundle: Bundle? = null, closeAll: 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     }
     startActivity(intent)
+
+}
+
+fun FloatingActionButton.changeState(isFavorite:Boolean){
+    if (isFavorite){
+        setImageResource(R.drawable.ic_heart)
+        imageTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(
+                context,
+                R.color.favorite
+            )
+        )
+    }else{
+        setImageResource(R.drawable.ic_favorites)
+        imageTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(
+                context,
+                android.R.color.white
+            )
+        )
+    }
 
 }

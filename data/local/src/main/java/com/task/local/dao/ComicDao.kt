@@ -1,6 +1,9 @@
 package com.task.local.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.task.model.Comic
 
 @Dao
@@ -40,5 +43,8 @@ interface ComicDao {
 
     @Query("select * from Comic where num  LIKE '%' || :query || '%' or  title  LIKE '%' || :query || '%' or safeTitle  LIKE '%' || :query || '%' order by num DESC")
     suspend fun searchComics(query: String): List<Comic>
+
+    @Query("UPDATE comic set isFavorite=:favorite  where num=:comicNumber")
+    suspend fun updateFavorite(favorite: Boolean, comicNumber: Int)
 
 }

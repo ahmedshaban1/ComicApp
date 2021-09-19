@@ -8,7 +8,8 @@ import com.task.model.ComicRemote
 import com.task.model.comic.ComicMapper
 import com.task.remote.NetworkBoundResource
 import com.task.remote.data.Resource
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
@@ -118,6 +119,12 @@ class ComicRepositoryImpl(
 
             override fun shouldFetch() = false
         }.asFlow()
+    }
+
+    override fun updateFavorite(favorite: Boolean, comicNumber: Int) {
+        CoroutineScope(Main).launch {
+            localDataSource.updateFavorite(favorite,comicNumber)
+        }
     }
 
 

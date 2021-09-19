@@ -15,7 +15,8 @@ class ComicsViewModel(
     private val searchComicsUseCase: SearchComicsUseCase,
     private val getFavoritesComicsUseCase: GetFavoriteComicsUseCase,
     private val getPreviousComicUseCase: GetPreviousComicUseCase,
-    private val getComicByNumberUseCase: GetComicByNumberUseCase
+    private val getComicByNumberUseCase: GetComicByNumberUseCase,
+    private val updateFavoriteUseCase: UpdateFavoriteUseCase
 ) : ViewModel() {
 
     private val _getComicsStateFlow: MutableStateFlow<Resource<List<Comic>>> =
@@ -87,5 +88,9 @@ class ComicsViewModel(
                     _comicByNumberStateFlow.value = it
                 }
         }
+    }
+
+    fun updateFavorite(isFavorite: Boolean,comicNumber:Int) {
+        updateFavoriteUseCase(isFavorite,comicNumber)
     }
 }

@@ -9,4 +9,5 @@ interface ComicLocalDataSource {
     suspend fun getFavoritesComics(): List<Comic>
     suspend fun searchComics(query: String): List<Comic>
     suspend fun getComicByNumber(comicNumber: Int): Comic
+    suspend fun updateFavorite(favorite: Boolean, comicNumber: Int)
 }

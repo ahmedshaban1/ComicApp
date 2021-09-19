@@ -45,6 +45,7 @@ class ComicDetailsActivity : BaseActivity<ActivityComicDetailsBinding>() {
                 monthTv.text = it.month.comicValueFormat(getString(R.string.month))
                 yearTv.text = it.year.comicValueFormat(getString(R.string.year))
                 dayTv.text = it.day.comicValueFormat(getString(R.string.day))
+                favoriteBtn.changeState(it.isFavorite)
                 handleActions(it)
             }
 
@@ -54,13 +55,15 @@ class ComicDetailsActivity : BaseActivity<ActivityComicDetailsBinding>() {
     private fun handleActions(comic: Comic) {
         with(binding) {
             shareBtn.setOnClickListener {
-                shareData(comic.title, comic.img,comic.alt?:"",comic.num)
+                shareData(comic.title, comic.img, comic.alt ?: "", comic.num)
             }
             explorationBtn.setOnClickListener {
                 openWebBrowser(comic.num)
             }
             favoriteBtn.setOnClickListener {
-
+                viewModel.updateFavorite(!comic.isFavorite, comic.num)
+                comic.isFavorite = !comic.isFavorite
+                favoriteBtn.changeState(comic.isFavorite)
             }
         }
     }

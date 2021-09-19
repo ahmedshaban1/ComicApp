@@ -36,6 +36,11 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
     override fun setup() {
         intRv()
         initFavoritesComicsObservable()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.getFavoritesComics()
     }
 
