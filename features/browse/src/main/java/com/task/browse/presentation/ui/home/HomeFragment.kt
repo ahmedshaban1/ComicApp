@@ -57,6 +57,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 Resource.Status.ERROR -> {
                     it.messageType?.let { it1 -> uiCommunicator?.handleMessages(it1) }
                 }
+                Resource.Status.INIT -> {}
             }
         })
     }
@@ -77,6 +78,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 Resource.Status.ERROR -> {
                     it.messageType?.let { it1 -> uiCommunicator?.handleMessages(it1) }
                 }
+                Resource.Status.INIT -> {}
             }
         })
     }
