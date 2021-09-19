@@ -34,15 +34,16 @@ data class ComicRemote(
 //Database Entity
 @Entity(tableName = "comic")
 data class Comic(
-    var day: String,
-    var img: String,
-    var link: String,
-    var month: String,
-    var news: String,
-    @PrimaryKey var num: Int,
-    var safeTitle: String,
-    var title: String,
-    var transcript: String,
-    var year: String,
-    var isFavorite:Boolean = false
+    var day: String = "",
+    var img: String = "",
+    var link: String = "",
+    var month: String = "",
+    var news: String = "",
+    @PrimaryKey var num: Int = 0,
+    var safeTitle: String = "",
+    var title: String = "",
+    var transcript: String = "",
+    var year: String = "",
+    var isFavorite: Boolean = false,
+    var alt: String? = null
 )

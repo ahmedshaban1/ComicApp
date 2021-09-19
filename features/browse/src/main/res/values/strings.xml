@@ -5,4 +5,7 @@
     <string name="title_notifications">Search</string>
     <string name="you_don_t_have_any_favorites_comics">You don\'t have any favorite comics</string>
     <string name="no_search_results_found">No search results found!!</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="day">Day</string>
 </resources>

@@ -16,7 +16,7 @@ import retrofit2.Retrofit
 
 @ExperimentalCoroutinesApi
 val comicModule = module {
-    viewModel { ComicsViewModel(get(), get(), get(), get()) }
+    viewModel { ComicsViewModel(get(), get(), get(), get(),get()) }
 
     factory {
         GetComicsUseCase(get())
@@ -30,6 +30,10 @@ val comicModule = module {
     }
     factory {
         SearchComicsUseCase(get())
+    }
+
+    factory {
+        GetComicByNumberUseCase(get())
     }
 
 

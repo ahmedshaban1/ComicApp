@@ -13,7 +13,7 @@ class ComicLocalDataSourceImpl(private val local: ComicDao) : ComicLocalDataSour
     }
 
     override suspend fun saveComic(comic: Comic) {
-        val checkComic = local.getComicByNumber(comic.num)
+        val checkComic = local.getComicsCountByNumber(comic.num)
         if (checkComic == 0) {
             local.insert(comic)
         } else {
@@ -40,5 +40,9 @@ class ComicLocalDataSourceImpl(private val local: ComicDao) : ComicLocalDataSour
 
     override suspend fun searchComics(query: String): List<Comic> {
         return local.searchComics(query)
+    }
+
+    override suspend fun getComicByNumber(comicNumber: Int): Comic {
+        return local.getComicByNumber(comicNumber)
     }
 }

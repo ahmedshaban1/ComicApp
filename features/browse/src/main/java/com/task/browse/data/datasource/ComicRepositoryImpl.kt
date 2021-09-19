@@ -12,13 +12,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 
 @ExperimentalCoroutinesApi
 class ComicRepositoryImpl(
     val remoteDataSource: ComicRemoteDataSource,
     val localDataSource: ComicLocalDataSource,
-    val comicMapper:ComicMapper
+    val comicMapper: ComicMapper
 ) : ComicRepository {
     override fun getLastComic(): Flow<Resource<Comic>> {
         return object : NetworkBoundResource<ComicRemote>() {
@@ -34,13 +33,13 @@ class ComicRepositoryImpl(
                 return null!!
             }
 
-        }.asFlow().flatMapLatest {data->map(data) }
+        }.asFlow().flatMapLatest { data -> map(data) }
     }
 
     override fun getFavoriteComics(): Flow<Resource<List<Comic>>> {
-        return object : NetworkBoundResource<List<Comic>>(){
+        return object : NetworkBoundResource<List<Comic>>() {
             override suspend fun remoteFetch(): List<Comic> {
-              return listOf()
+                return listOf()
             }
 
             override suspend fun saveFetchResult(data: List<Comic>) {
@@ -55,7 +54,7 @@ class ComicRepositoryImpl(
     }
 
     override fun searchComics(query: String): Flow<Resource<List<Comic>>> {
-        return object : NetworkBoundResource<List<Comic>>(){
+        return object : NetworkBoundResource<List<Comic>>() {
             override suspend fun remoteFetch(): List<Comic> {
                 return listOf()
             }
@@ -72,7 +71,7 @@ class ComicRepositoryImpl(
     }
 
     override fun getAllComics(): Flow<Resource<List<Comic>>> {
-        return object : NetworkBoundResource<List<Comic>>(){
+        return object : NetworkBoundResource<List<Comic>>() {
             override suspend fun remoteFetch(): List<Comic> {
                 return listOf()
             }
@@ -89,7 +88,7 @@ class ComicRepositoryImpl(
     }
 
     override fun getPreviousComic(comicNumber: Int): Flow<Resource<Comic>> {
-        return object : NetworkBoundResource<ComicRemote>(){
+        return object : NetworkBoundResource<ComicRemote>() {
             override suspend fun remoteFetch(): ComicRemote {
                 return remoteDataSource.getPreviousComic(comicNumber)
             }
@@ -101,13 +100,30 @@ class ComicRepositoryImpl(
             override suspend fun localFetch(): ComicRemote {
                 return null!!
             }
-        }.asFlow().flatMapLatest {data->map(data) }
+        }.asFlow().flatMapLatest { data -> map(data) }
+    }
+
+    override fun getComicByNumber(comicNumber: Int): Flow<Resource<Comic>> {
+        return object : NetworkBoundResource<Comic>() {
+            override suspend fun remoteFetch(): Comic {
+                return Comic()
+            }
+
+            override suspend fun saveFetchResult(data: Comic) {
+            }
+
+            override suspend fun localFetch(): Comic {
+                return localDataSource.getComicByNumber(comicNumber)
+            }
+
+            override fun shouldFetch() = false
+        }.asFlow()
     }
 
 
     private fun map(data: Resource<ComicRemote>): Flow<Resource<Comic>> {
         return flow {
-            val comic =  data.data?.let { comicMapper.mapToEntity(it)}
+            val comic = data.data?.let { comicMapper.mapToEntity(it) }
             emit(Resource(status = data.status, data = comic, messageType = data.messageType))
         }
     }

@@ -2,10 +2,7 @@ package com.task.browse.presentation.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.task.browse.domain.GetComicsUseCase
-import com.task.browse.domain.GetFavoriteComicsUseCase
-import com.task.browse.domain.GetPreviousComicUseCase
-import com.task.browse.domain.SearchComicsUseCase
+import com.task.browse.domain.*
 import com.task.model.Comic
 import com.task.remote.data.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +10,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class ComicsViewModel(private val getComicsUseCase: GetComicsUseCase, private val searchComicsUseCase: SearchComicsUseCase, private val getFavoritesComicsUseCase: GetFavoriteComicsUseCase,private val  getPreviousComicUseCase: GetPreviousComicUseCase) : ViewModel() {
+class ComicsViewModel(
+    private val getComicsUseCase: GetComicsUseCase,
+    private val searchComicsUseCase: SearchComicsUseCase,
+    private val getFavoritesComicsUseCase: GetFavoriteComicsUseCase,
+    private val getPreviousComicUseCase: GetPreviousComicUseCase,
+    private val getComicByNumberUseCase: GetComicByNumberUseCase
+) : ViewModel() {
 
     private val _getComicsStateFlow: MutableStateFlow<Resource<List<Comic>>> =
         MutableStateFlow(Resource.init())
@@ -35,6 +38,11 @@ class ComicsViewModel(private val getComicsUseCase: GetComicsUseCase, private va
         MutableStateFlow(Resource.init())
 
     val previousComicStateFlow: StateFlow<Resource<Comic>> = _previousComicStateFlow
+
+    private val _comicByNumberStateFlow: MutableStateFlow<Resource<Comic>> =
+        MutableStateFlow(Resource.init())
+
+    val comicByNumberComicStateFlow: StateFlow<Resource<Comic>> = _comicByNumberStateFlow
 
     fun getComics() {
         viewModelScope.launch {
@@ -68,6 +76,15 @@ class ComicsViewModel(private val getComicsUseCase: GetComicsUseCase, private va
             getPreviousComicUseCase(comicNumber)
                 .collect {
                     _previousComicStateFlow.value = it
+                }
+        }
+    }
+
+    fun getComicByNumber(comicNumber: Int) {
+        viewModelScope.launch {
+            getComicByNumberUseCase(comicNumber)
+                .collect {
+                    _comicByNumberStateFlow.value = it
                 }
         }
     }
