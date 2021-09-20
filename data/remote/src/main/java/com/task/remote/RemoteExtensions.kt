@@ -1,11 +1,11 @@
 package com.task.remote
 
-
 import com.google.gson.Gson
 import com.task.common.MessageType
 import com.task.common.NetworkCodes.CONNECTION_ERROR
 import com.task.common.NetworkCodes.GENERAL_ERROR
 import com.task.common.NetworkCodes.TIMEOUT_ERROR
+import java.io.IOException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withContext
@@ -13,13 +13,11 @@ import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
 import retrofit2.HttpException
-import java.io.IOException
 
 sealed class ResultWrapper<out T> {
     data class Success<out T>(val value: T) : ResultWrapper<T>()
     data class GenericError(val messageType: MessageType) : ResultWrapper<Nothing>()
 }
-
 
 suspend fun <T> safeApiCall(
     dispatcher: CoroutineDispatcher,
@@ -52,26 +50,22 @@ suspend fun <T> safeApiCall(
                     )
                 }
             }
-
         }
     }
 }
 
-
-//for custom error body
+// for custom error body
 private fun convertErrorBody(throwable: HttpException): String? {
     try {
-        val json = JSONTokener(throwable.response()?.errorBody()?.string()).nextValue();
+        val json = JSONTokener(throwable.response()?.errorBody()?.string()).nextValue()
         if (json is JSONObject || json is JSONArray) {
             val errorResponse = Gson().fromJson(json.toString(), ErrorResponse::class.java)
             errorResponse?.let { return it.message }
         }
         return null
-
     } catch (exception: Exception) {
         return null
     }
 }
 
 class ErrorResponse(val message: String? = "")
-

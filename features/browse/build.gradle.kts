@@ -3,7 +3,6 @@ plugins {
     id(GradlePluginId.KAPT)
     id(GradlePluginId.BASE_GRADLE_PLUGIN)
     id("kotlin-android")
-
 }
 
 dependencies {
@@ -18,10 +17,7 @@ dependencies {
     api(project(ModulesDependency.MODEL))
     api(project(ModulesDependency.LOCAL))
 
-    //implementation(project(ModulesDependency.UI))
+    // implementation(project(ModulesDependency.UI))
 
-    //addTestDependencies()
-
-
+    // addTestDependencies()
 }
-

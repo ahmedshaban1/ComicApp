@@ -1,5 +1,6 @@
 package com.task.common
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
@@ -19,7 +20,6 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), UiCommunica
         setContentView(requireNotNull(_binding).root)
         setUp()
     }
-
 
     override fun showLoading() {
         progress?.dismiss() ?: kotlin.run {
@@ -46,11 +46,9 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), UiCommunica
             is MessageType.None -> TODO()
             is MessageType.Toast -> TODO()
         }
-
     }
 
-
-    //all of this function needs future impl
+    // all of this function needs future impl
 
     protected abstract fun setUp()
     private var _binding: ViewBinding? = null
@@ -59,7 +57,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), UiCommunica
     protected val binding: VB
         get() = _binding as VB
 
-
+    @SuppressLint("InflateParams")
     private fun progressDialog(context: Context): Dialog {
         val dialog = Dialog(context)
         val inflate = LayoutInflater.from(context).inflate(R.layout.progress_dialog, null)

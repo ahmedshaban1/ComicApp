@@ -17,13 +17,11 @@ fun getRemoteModule(baseUrl: String) = module {
             .build()
     }
 
-
     factory {
          GsonBuilder()
             .setLenient()
-            .create();
+            .create()
     }
-
 
     factory<Interceptor> {
         HttpLoggingInterceptor()
@@ -31,6 +29,4 @@ fun getRemoteModule(baseUrl: String) = module {
     }
 
     factory { OkHttpClient.Builder().addInterceptor(get()).build() }
-
-
 }

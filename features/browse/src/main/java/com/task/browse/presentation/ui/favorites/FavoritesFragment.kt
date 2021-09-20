@@ -36,7 +36,6 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
     override fun setup() {
         intRv()
         initFavoritesComicsObservable()
-
     }
 
     override fun onResume() {
@@ -54,9 +53,9 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
 
     private fun initFavoritesComicsObservable() {
         viewModel.favoritesComicStateFlow.asLiveData().observe(viewLifecycleOwner, {
-             if (it.status == SUCCESS) it.data?.let {favComics-> validateList(favComics) }
+            if (it.status == SUCCESS)
+                it.data?.let { favComics -> validateList(favComics) }
         })
-
     }
 
     private fun validateList(favComics: List<Comic>) {

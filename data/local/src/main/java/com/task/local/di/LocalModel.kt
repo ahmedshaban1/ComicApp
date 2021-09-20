@@ -8,5 +8,4 @@ val localModule = module {
 
     single { AppDatabase.buildDatabase(androidContext()) }
     factory { get<AppDatabase>().comicDao() }
-
 }

@@ -24,7 +24,6 @@ class ComicsViewModel(
 
     val comicsStateFlow: StateFlow<Resource<List<Comic>>> = _getComicsStateFlow
 
-
     private val _getFavoriteComicsStateFlow: MutableStateFlow<Resource<List<Comic>>> =
         MutableStateFlow(Resource.init())
 
@@ -90,7 +89,7 @@ class ComicsViewModel(
         }
     }
 
-    fun updateFavorite(isFavorite: Boolean,comicNumber:Int) {
-        updateFavoriteUseCase(isFavorite,comicNumber)
+    fun updateFavorite(isFavorite: Boolean, comicNumber: Int) {
+        updateFavoriteUseCase(isFavorite, comicNumber)
     }
 }

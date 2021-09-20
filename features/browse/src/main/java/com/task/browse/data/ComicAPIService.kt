@@ -10,5 +10,4 @@ interface ComicAPIService {
 
     @GET("{comicNumber}/info.0.json")
     suspend fun getPreviousComic(@Path("comicNumber") comicNumber: Int): ComicRemote
-
 }

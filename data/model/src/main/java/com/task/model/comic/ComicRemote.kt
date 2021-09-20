@@ -1,11 +1,10 @@
 package com.task.model
 
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-//Model
+// Model
 data class ComicRemote(
     @SerializedName("alt")
     var alt: String?,
@@ -31,7 +30,7 @@ data class ComicRemote(
     var year: String?
 )
 
-//Database Entity
+// Database Entity
 @Entity(tableName = "comic")
 data class Comic(
     var day: String = "",

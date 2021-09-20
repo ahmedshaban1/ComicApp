@@ -26,7 +26,6 @@ buildscript {
 
 allprojects {
 
-
     // We want to apply ktlint at all project level because it also checks build gradle files
     plugins.apply(GradlePluginId.KTLINT_GRADLE)
     // Ktlint configuration for sub-projects
@@ -41,7 +40,6 @@ allprojects {
         filter {
             exclude("**/generated/**")
         }
-
     }
 
     plugins.apply(GradlePluginId.DETEKT)
@@ -50,7 +48,6 @@ allprojects {
         config = files("${project.rootDir}/config/detekt.yml")
         parallel = true
     }
-
 }
 
 tasks.register("clean", Delete::class) {

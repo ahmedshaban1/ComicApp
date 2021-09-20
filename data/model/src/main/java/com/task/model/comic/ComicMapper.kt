@@ -16,7 +16,7 @@ class ComicMapper {
             title = comicRemote.title ?: "",
             transcript = comicRemote.transcript ?: "",
             year = comicRemote.year ?: "",
-            alt = comicRemote.alt?:""
+            alt = comicRemote.alt ?: ""
         )
     }
 }

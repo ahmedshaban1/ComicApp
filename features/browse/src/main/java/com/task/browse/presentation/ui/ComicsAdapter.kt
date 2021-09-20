@@ -3,17 +3,16 @@ package com.task.browse.presentation.ui
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.task.browse.databinding.ComicCoverItemBinding
 import com.task.common.loadImage
 import com.task.model.Comic
 
-class ComicsAdapter(private val dataList: ArrayList<Comic> = arrayListOf(), private val interaction: Interaction? = null) :
+class ComicsAdapter(
+    private val dataList: ArrayList<Comic> = arrayListOf(),
+    private val interaction: Interaction? = null
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ComicCoverItemBinding.inflate(
@@ -21,7 +20,7 @@ class ComicsAdapter(private val dataList: ArrayList<Comic> = arrayListOf(), priv
             parent,
             false
         )
-        binding.root.layoutParams = ViewGroup.LayoutParams((parent.width * 0.9).toInt(),ViewGroup.LayoutParams.MATCH_PARENT)
+        binding.root.layoutParams = ViewGroup.LayoutParams((parent.width * 0.9).toInt(), ViewGroup.LayoutParams.MATCH_PARENT)
         return ComicsAdapterVH(
             binding,
             interaction
@@ -48,16 +47,14 @@ class ComicsAdapter(private val dataList: ArrayList<Comic> = arrayListOf(), priv
     }
 
     fun getLastItemNumber(): Int {
-        return if(dataList.isEmpty()) -1
+        return if (dataList.isEmpty()) -1
         else dataList.last().num
-
     }
 
     fun add(newComic: Comic) {
         dataList.add(newComic)
-        notifyItemInserted(dataList.size-1)
+        notifyItemInserted(dataList.size - 1)
     }
-
 
     class ComicsAdapterVH
     constructor(
@@ -70,12 +67,10 @@ class ComicsAdapter(private val dataList: ArrayList<Comic> = arrayListOf(), priv
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, comic)
             }
-
         }
     }
 
     interface Interaction {
         fun onItemSelected(position: Int, item: Comic)
     }
-
 }

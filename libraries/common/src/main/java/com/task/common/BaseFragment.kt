@@ -31,7 +31,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         setup()
     }
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is UiCommunicator) {
@@ -47,6 +46,5 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         super.onDestroyView()
         _binding = null
         uiCommunicator = null
-
     }
 }

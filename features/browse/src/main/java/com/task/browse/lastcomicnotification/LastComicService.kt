@@ -23,23 +23,20 @@ class LastComicService : JobIntentService() {
     private val repo: ComicRepository by inject()
 
     override fun onHandleWork(intent: Intent) {
-        Log.e("onHandleWork","onHandleWork")
+        Log.e("onHandleWork", "onHandleWork")
         CoroutineScope(Dispatchers.IO).launch {
             val lastComic = repo.getLastComic(false)
             lastComic.collect {
                 if (it.status == SUCCESS) {
                     if (!repo.checkComicFound(it.data?.num ?: 0)) {
-                        //fire notification
+                        // fire notification
                         createNotificationChannel(this@LastComicService)
                         notifyNotification(this@LastComicService, it.data!!)
-
                     }
                 }
             }
-
         }
     }
-
 
     private fun createNotificationChannel(context: Context) {
 
@@ -63,9 +60,7 @@ class LastComicService : JobIntentService() {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
 
             notify(NOTIFICATION_ID, build.build())
-
         }
-
     }
 
     companion object {

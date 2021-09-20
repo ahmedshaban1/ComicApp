@@ -23,19 +23,18 @@ internal fun Project.configureAndroidApp() = this.extensions.getByType<AndroidBa
         versionCode = AndroidConfig.VERSION_CODE
         versionName = AndroidConfig.VERSION_NAME
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
-    }
-    buildTypes {
-        getByName(BuildType.DEBUG) {
-            isTestCoverageEnabled = true
-            buildConfigField("String","BASE_URL", "\"http://xkcd.com/\"")
-        }
-        getByName(BuildType.RELEASE) {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            buildConfigField("String","BASE_URL", "\"http://xkcd.com/\"")
 
+        buildTypes {
+            getByName(BuildType.DEBUG) {
+                isTestCoverageEnabled = true
+            }
+            getByName(BuildType.RELEASE) {
+                isMinifyEnabled = false
+                proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            }
         }
     }
+
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

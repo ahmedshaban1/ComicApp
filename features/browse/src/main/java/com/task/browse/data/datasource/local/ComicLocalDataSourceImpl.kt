@@ -30,7 +30,6 @@ class ComicLocalDataSourceImpl(private val local: ComicDao) : ComicLocalDataSour
                     year
                 )
             }
-
         }
     }
 
@@ -47,7 +46,7 @@ class ComicLocalDataSourceImpl(private val local: ComicDao) : ComicLocalDataSour
     }
 
     override suspend fun updateFavorite(favorite: Boolean, comicNumber: Int) {
-       local.updateFavorite(favorite,comicNumber)
+        local.updateFavorite(favorite, comicNumber)
     }
 
     override suspend fun checkComicFound(comicNumber: Int): Boolean {

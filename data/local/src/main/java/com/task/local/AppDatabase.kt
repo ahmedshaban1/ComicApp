@@ -11,7 +11,6 @@ import com.task.model.Comic
 abstract class AppDatabase : RoomDatabase() {
     abstract fun comicDao(): ComicDao
 
-
     companion object {
         fun buildDatabase(context: Context) =
             Room.databaseBuilder(
@@ -19,6 +18,5 @@ abstract class AppDatabase : RoomDatabase() {
                 AppDatabase::class.java,
                 "appdatabase.db"
             ).build()
-
     }
 }

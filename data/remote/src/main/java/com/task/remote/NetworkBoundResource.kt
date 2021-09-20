@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onStart
 
-
 @ExperimentalCoroutinesApi
 abstract class NetworkBoundResource<T> {
 
@@ -35,16 +34,13 @@ abstract class NetworkBoundResource<T> {
                 }
             }
         } else {
-            //get from cash
+            // get from cash
             emit(Resource.success(data = localFetch()))
         }
-
-
     }.onStart {
-        //get From cache
+        // get From cache
         emit(Resource.loading(data = null))
     }
-
 
     abstract suspend fun remoteFetch(): T
     abstract suspend fun saveFetchResult(data: T)
@@ -53,5 +49,3 @@ abstract class NetworkBoundResource<T> {
     open fun shouldFetch() = true
     open fun shouldFetchWithLocalData() = false
 }
-
-

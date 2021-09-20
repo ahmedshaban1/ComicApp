@@ -2,7 +2,6 @@ package com.task.remote.data
 
 import com.task.common.MessageType
 
-
 data class Resource<out T>(val status: Status, val data: T?, val messageType: MessageType?) {
     companion object {
         fun <T> success(data: T?): Resource<T> {

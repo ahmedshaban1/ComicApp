@@ -48,7 +48,6 @@ class ComicDetailsActivity : BaseActivity<ActivityComicDetailsBinding>() {
                 favoriteBtn.changeState(it.isFavorite)
                 handleActions(it)
             }
-
         }
     }
 
@@ -68,7 +67,6 @@ class ComicDetailsActivity : BaseActivity<ActivityComicDetailsBinding>() {
         }
     }
 
-
     override val bindingInflater: (LayoutInflater) -> ActivityComicDetailsBinding
         get() = ActivityComicDetailsBinding::inflate
 
@@ -77,6 +75,5 @@ class ComicDetailsActivity : BaseActivity<ActivityComicDetailsBinding>() {
             onBackPressed()
         }
         return super.onOptionsItemSelected(item)
-
     }
 }

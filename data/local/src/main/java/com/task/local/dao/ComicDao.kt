@@ -29,7 +29,8 @@ interface ComicDao {
 
     @Query("UPDATE comic set day=:day , img=:img,link=:link,month=:month,news=:news,safeTitle=:safeTitle,title=:title,transcript=:transcript,year=:year where num=:comicNumber")
     suspend fun update(
-        comicNumber: Int, day: String,
+        comicNumber: Int,
+        day: String,
         img: String,
         link: String,
         month: String,
@@ -40,11 +41,9 @@ interface ComicDao {
         year: String
     )
 
-
     @Query("select * from Comic where num  LIKE '%' || :query || '%' or  title  LIKE '%' || :query || '%' or safeTitle  LIKE '%' || :query || '%' order by num DESC")
     suspend fun searchComics(query: String): List<Comic>
 
     @Query("UPDATE comic set isFavorite=:favorite  where num=:comicNumber")
     suspend fun updateFavorite(favorite: Boolean, comicNumber: Int)
-
 }

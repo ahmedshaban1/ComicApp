@@ -62,7 +62,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         })
     }
 
-
     private fun initGetComicsObservable() {
         viewModel.comicsStateFlow.asLiveData().observe(viewLifecycleOwner, {
             when (it.status) {
@@ -103,9 +102,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 binding.previousComicBtn.setOnClickListener {
                     viewModel.getPreviousComic(--lastNumber)
                 }
-
             }
         }
     }
-
 }

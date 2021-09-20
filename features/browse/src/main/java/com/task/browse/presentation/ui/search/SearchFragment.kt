@@ -66,13 +66,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     private fun initFavoritesComicsObservable() {
         viewModel.searchComicStateFlow.asLiveData().observe(viewLifecycleOwner, {
-            when (it.status) {
-                Resource.Status.LOADING -> {
-                }
-                Resource.Status.SUCCESS -> it.data?.let { validateList(it) }
-                Resource.Status.ERROR -> {
-                }
-            }
+            if (it.status == Resource.Status.SUCCESS)
+                it.data?.let { results -> validateList(results) }
         })
     }
 

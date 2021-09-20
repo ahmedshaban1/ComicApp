@@ -16,7 +16,7 @@ import retrofit2.Retrofit
 
 @ExperimentalCoroutinesApi
 val comicModule = module {
-    viewModel { ComicsViewModel(get(), get(), get(), get(),get(),get()) }
+    viewModel { ComicsViewModel(get(), get(), get(), get(), get(), get()) }
 
     factory {
         GetComicsUseCase(get())
@@ -40,7 +40,6 @@ val comicModule = module {
         UpdateFavoriteUseCase(get())
     }
 
-
     factory<ComicRemoteDataSource> {
         ComicRemoteDataSourceImpl(get())
     }
@@ -49,11 +48,9 @@ val comicModule = module {
         ComicLocalDataSourceImpl(get())
     }
 
-
     single<ComicRepository> {
-        ComicRepositoryImpl(get(), get(),get())
+        ComicRepositoryImpl(get(), get(), get())
     }
-
 
     single {
         ComicMapper()
