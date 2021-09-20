@@ -6,4 +6,5 @@ plugins {
 
 dependencies {
     commonDevelopmentDependencies()
+    addTestDependencies()
 }

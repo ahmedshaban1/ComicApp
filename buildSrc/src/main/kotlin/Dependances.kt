@@ -62,8 +62,9 @@ object GradleClasspath {
 
 object LibraryDependency {
     object Version {
-        const val SUPPORT_LIB = "1.1.0"
-        const val CONSTRAINT = "1.1.3"
+        const val SUPPORT_LIB = "1.3.1"
+        const val MATERIAL = "1.4.0"
+        const val CONSTRAINT = "2.1.0"
         const val KOIN = "2.2.3"
         val kotlin = "1.3.21"
         val gradle = "3.3.2"
@@ -80,7 +81,7 @@ object LibraryDependency {
         const val recyclerview = "1.0.0"
         const val archCoreTest = "2.1.0"
         const val mockk = "1.9.2"
-        const val coroutines_android_version = "1.3.4"
+        const val coroutines_android_version = "1.5.0"
         const val COROUTINESTESTING="1.3.2"
         const val PICASSO = "2.71828"
         const val ROUNDED_IMAGE = "2.3.0"
@@ -90,7 +91,7 @@ object LibraryDependency {
     const val KOTLIN_STD = "org.jetbrains.kotlin:kotlin-stdlib:${CoreVersion.KOTLIN}"
     const val CORE = "androidx.core:core-ktx:${Version.SUPPORT_LIB}"
     const val APPCOMPAT = "androidx.appcompat:appcompat:${Version.SUPPORT_LIB}"
-    const val MATERIAL = "com.google.android.material:material:${Version.SUPPORT_LIB}"
+    const val MATERIAL = "com.google.android.material:material:${Version.MATERIAL}"
     const val CONSTRAINT = "androidx.constraintlayout:constraintlayout:${Version.CONSTRAINT}"
     const val NAVIGATION_FRAGMENT =
         "androidx.navigation:navigation-fragment-ktx:${CoreVersion.NAVIGATION}"
@@ -162,5 +163,5 @@ object TestLibraryDependency {
     const val JUNIT = "junit:junit:${Version.JUNIT}"
     const val JUNIT_ANDROID = "androidx.test.ext:junit:${Version.JUNIT_ANDROID}"
     const val ESPRESSO = "androidx.test.espresso:espresso-core:${Version.ESPRESSO}"
-    const val KOIN = "org.koin:koin-test:${LibraryDependency.Version.KOIN}"
+    const val KOIN = "io.insert-koin:koin-test:${LibraryDependency.Version.KOIN}"
 }

@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
@@ -57,10 +58,9 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), UiCommunica
     protected val binding: VB
         get() = _binding as VB
 
-    @SuppressLint("InflateParams")
     private fun progressDialog(context: Context): Dialog {
         val dialog = Dialog(context)
-        val inflate = LayoutInflater.from(context).inflate(R.layout.progress_dialog, null)
+        val inflate =View.inflate(context,R.layout.progress_dialog,null)
         dialog.setContentView(inflate)
         dialog.setCancelable(false)
         dialog.window?.setBackgroundDrawable(
