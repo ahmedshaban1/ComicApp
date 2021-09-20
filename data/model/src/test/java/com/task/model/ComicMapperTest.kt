@@ -19,7 +19,6 @@ class ComicMapperTest {
         num = 1
     )
 
-
     @Test
     fun `Given comic remote, when mapToEntity, then get Comic `() {
 

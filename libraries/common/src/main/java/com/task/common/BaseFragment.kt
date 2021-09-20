@@ -35,8 +35,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         super.onAttach(context)
         if (context is UiCommunicator) {
             uiCommunicator = context
-        } else {
-            throw Exception("you must implement uiCommunicator listener ")
         }
     }
 

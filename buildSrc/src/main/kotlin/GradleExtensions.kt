@@ -1,6 +1,5 @@
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.kotlin.dsl.project
 
 
 /*
@@ -15,6 +14,18 @@ fun DependencyHandler.addTestDependencies() {
     androidTestImplementation(LibraryDependency.MOCKkANDROIDTESTING)
     testImplementation(LibraryDependency.COROUTINESTESTING)
     testImplementation(LibraryDependency.LIFECYCLETESTING)
+    androidTestImplementation(TestLibraryDependency.testandroidx_junit)
+    androidTestImplementation(TestLibraryDependency.testandroidx_runner)
+    androidTestImplementation(TestLibraryDependency.testandroidx_rules)
+    androidTestImplementation(TestLibraryDependency.fragments_testing)
+    androidTestImplementation(TestLibraryDependency.androidx_testing_core)
+    androidTestImplementation(TestLibraryDependency.barista)
+    androidTestImplementation(TestLibraryDependency.JUNIT)
+    androidTestImplementation(TestLibraryDependency.arc_core)
+    androidTestImplementation(TestLibraryDependency.KOIN)
+
+
+
 
 }
 
@@ -28,7 +39,6 @@ fun DependencyHandler.commonDevelopmentDependencies() {
     api(LibraryDependency.LIFECYCLEEXTENSIONS)
     api(LibraryDependency.COREKTX)
     api(LibraryDependency.LIFECYCLEViewModel)
-
 
 
 }
@@ -65,8 +75,6 @@ fun DependencyHandler.localRoomDependencies() {
     api(LibraryDependency.roomKtx)
     api(LibraryDependency.roomRunTime)
 }
-
-
 
 
 /*

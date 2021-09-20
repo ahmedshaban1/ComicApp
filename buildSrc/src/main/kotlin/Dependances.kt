@@ -80,16 +80,16 @@ object LibraryDependency {
         const val room = "2.3.0"
         const val recyclerview = "1.0.0"
         const val archCoreTest = "2.1.0"
-        const val mockk = "1.9.2"
+        const val mockk = "1.12.0"
         const val coroutines_android_version = "1.5.0"
-        const val COROUTINESTESTING="1.3.2"
+        const val COROUTINESTESTING = "1.3.2"
         const val PICASSO = "2.71828"
         const val ROUNDED_IMAGE = "2.3.0"
+        const val androidx_ext_junit = "1.1.1"
+
 
     }
 
-    const val KOTLIN_STD = "org.jetbrains.kotlin:kotlin-stdlib:${CoreVersion.KOTLIN}"
-    const val CORE = "androidx.core:core-ktx:${Version.SUPPORT_LIB}"
     const val APPCOMPAT = "androidx.appcompat:appcompat:${Version.SUPPORT_LIB}"
     const val MATERIAL = "com.google.android.material:material:${Version.MATERIAL}"
     const val CONSTRAINT = "androidx.constraintlayout:constraintlayout:${Version.CONSTRAINT}"
@@ -119,7 +119,7 @@ object LibraryDependency {
     const val HTTPLOGGER = "com.squareup.okhttp3:logging-interceptor:${Version.okHttp}"
 
     const val coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.coroutines_android_version}"
-    const val coroutines_android =  "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines_android_version}"
+    const val coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines_android_version}"
 
     //room
 
@@ -129,10 +129,10 @@ object LibraryDependency {
 
     //testing mockk
 
-    const val MOCKkANDROIDTESTING  = "io.mockk:mockk-android:${Version.mockk}"
-    const val MOCKKTESTING   = "io.mockk:mockk:${Version.mockk}"
+    const val MOCKkANDROIDTESTING = "io.mockk:mockk-android:${Version.mockk}"
+    const val MOCKKTESTING = "io.mockk:mockk:${Version.mockk}"
 
-    const val COROUTINESTESTING  = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.COROUTINESTESTING}"
+    const val COROUTINESTESTING = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.COROUTINESTESTING}"
     const val LIFECYCLETESTING = "androidx.arch.core:core-testing:${Version.archCoreTest}"
 
 
@@ -143,25 +143,38 @@ object ModulesDependency {
     const val REMOTE = ":data:remote"
     const val MODEL = ":data:model"
     const val LOCAL = ":data:local"
-    const val UI = ":libraries:uicomponents"
 
 }
 
 object FeaturesDependency {
-    const val prefix = ":features:"
+    private const val prefix = ":features:"
     const val browse = "${prefix}browse"
-    const val comicDetails = "${prefix}details"
 }
 
 object TestLibraryDependency {
     object Version {
-        const val JUNIT = "4.13"
+        const val JUNIT = "4.12"
         const val JUNIT_ANDROID = "1.1.1"
         const val ESPRESSO = "3.2.0"
+        const val androidx_ext_junit = "1.1.1"
+        const val androidx_testing = "1.2.0"
+        const val testing_core = "1.3.0-alpha03"
+        const val barista = "4.1.0"
+        const val fragments_testing = "1.2.0-rc03"
+        const val core = "2.0.0"
     }
 
     const val JUNIT = "junit:junit:${Version.JUNIT}"
     const val JUNIT_ANDROID = "androidx.test.ext:junit:${Version.JUNIT_ANDROID}"
     const val ESPRESSO = "androidx.test.espresso:espresso-core:${Version.ESPRESSO}"
     const val KOIN = "io.insert-koin:koin-test:${LibraryDependency.Version.KOIN}"
+
+    val testandroidx_junit = "androidx.test.ext:junit:${Version.androidx_ext_junit}"
+    val testandroidx_runner = "androidx.test:runner:${Version.androidx_testing}"
+    val testandroidx_rules = "androidx.test:rules:${Version.androidx_testing}"
+    val fragments_testing = "androidx.fragment:fragment-testing:${Version.fragments_testing}"
+    val androidx_testing_core = "androidx.test:core:${Version.testing_core}"
+    val barista =
+        "com.adevinta.android:barista:${Version.barista}"
+    val arc_core = "androidx.arch.core:core-testing:${Version.core}"
 }
