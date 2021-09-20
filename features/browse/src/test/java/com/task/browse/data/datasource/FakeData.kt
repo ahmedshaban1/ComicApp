@@ -21,14 +21,11 @@ object FakeData {
         )
     }
 
-    fun fakeFetComics(count:Int,isFavorite:Boolean): ArrayList<Comic> {
-        val list:ArrayList<Comic> = arrayListOf()
-        for (i in 0..count){
-            list.add(Comic(isFavorite = isFavorite , num = 1))
+    fun fakeComics(count: Int, isFavorite: Boolean): ArrayList<Comic> {
+        val list: ArrayList<Comic> = arrayListOf()
+        for (i in 1..count) {
+            list.add(Comic(isFavorite = isFavorite, num = i))
         }
         return list
     }
-
-
-
 }

@@ -14,20 +14,19 @@ import org.junit.Test
 
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
-class GetComicByNumberUseCaseTest : BaseComicTest() {
-
-    lateinit var sut: GetComicByNumberUseCase
+class GetPreviousComicUseCaseTest : BaseComicTest() {
+    lateinit var sut: GetPreviousComicUseCase
 
     @Before
     fun setUp() {
-        sut = GetComicByNumberUseCase(repository = comicRepository)
+        sut = GetPreviousComicUseCase(repository = comicRepository)
     }
 
     @Test
-    fun `Given local comicNumber, when GetComicByNumber, then get loading - success`() {
+    fun `Given remote comicNumber, when GetPreviousComic, then get loading - success`() {
         // arrange
         val comic = Comic()
-        coEvery { comicRepository.getComicByNumber(any()) } returns flow {
+        coEvery { comicRepository.getPreviousComic(any()) } returns flow {
             emit(Resource.loading(data = null))
             emit(Resource.success(data = comic))
         }
@@ -43,9 +42,9 @@ class GetComicByNumberUseCaseTest : BaseComicTest() {
     }
 
     @Test
-    fun `Given local comicNumber, when GetComicByNumber, then get loading - error`() {
+    fun `Given local comicNumber, when GetPreviousComic, then get loading - error`() {
         // arrange
-        coEvery { comicRepository.getComicByNumber(any()) } returns flow {
+        coEvery { comicRepository.getPreviousComic(any()) } returns flow {
             emit(Resource.loading(data = null))
             emit(Resource.error(data = null, error = messageType))
         }

@@ -1,7 +1,6 @@
 package com.task.browse.domain
 
 import com.task.browse.helpers.BaseComicTest
-import com.task.model.Comic
 import com.task.remote.data.Resource
 import io.mockk.coEvery
 import io.mockk.coVerifyOrder
@@ -14,49 +13,47 @@ import org.junit.Test
 
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
-class GetComicByNumberUseCaseTest : BaseComicTest() {
-
-    lateinit var sut: GetComicByNumberUseCase
+class GetFavoriteComicsUseCaseTest : BaseComicTest() {
+    lateinit var sut: GetFavoriteComicsUseCase
 
     @Before
     fun setUp() {
-        sut = GetComicByNumberUseCase(repository = comicRepository)
+        sut = GetFavoriteComicsUseCase(repository = comicRepository)
     }
 
     @Test
-    fun `Given local comicNumber, when GetComicByNumber, then get loading - success`() {
+    fun `Given local, when GetFavoriteComics, then get loading - success`() {
         // arrange
-        val comic = Comic()
-        coEvery { comicRepository.getComicByNumber(any()) } returns flow {
+        coEvery { comicRepository.getFavoriteComics() } returns flow {
             emit(Resource.loading(data = null))
-            emit(Resource.success(data = comic))
+            emit(Resource.success(data = fakeComics))
         }
         // act
         runBlocking {
-            sut(comicNumber).collect(collector = collector)
+            sut().collect(collector = collectorList)
         }
         // assert
         coVerifyOrder {
-            collector.emit(Resource.loading(data = null))
-            collector.emit(Resource.success(data = comic))
+            collectorList.emit(Resource.loading(data = null))
+            collectorList.emit(Resource.success(data = fakeComics))
         }
     }
 
     @Test
     fun `Given local comicNumber, when GetComicByNumber, then get loading - error`() {
         // arrange
-        coEvery { comicRepository.getComicByNumber(any()) } returns flow {
+        coEvery { comicRepository.getFavoriteComics() } returns flow {
             emit(Resource.loading(data = null))
             emit(Resource.error(data = null, error = messageType))
         }
         // act
         runBlocking {
-            sut(comicNumber).collect(collector = collector)
+            sut().collect(collector = collectorList)
         }
         // assert
         coVerifyOrder {
-            collector.emit(Resource.loading(data = null))
-            collector.emit(Resource.error(data = null, error = messageType))
+            collectorList.emit(Resource.loading(data = null))
+            collectorList.emit(Resource.error(data = null, error = messageType))
         }
     }
 }

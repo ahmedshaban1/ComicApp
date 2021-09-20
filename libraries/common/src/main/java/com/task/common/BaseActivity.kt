@@ -1,6 +1,5 @@
 package com.task.common
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
@@ -60,7 +59,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), UiCommunica
 
     private fun progressDialog(context: Context): Dialog {
         val dialog = Dialog(context)
-        val inflate =View.inflate(context,R.layout.progress_dialog,null)
+        val inflate = View.inflate(context, R.layout.progress_dialog, null)
         dialog.setContentView(inflate)
         dialog.setCancelable(false)
         dialog.window?.setBackgroundDrawable(

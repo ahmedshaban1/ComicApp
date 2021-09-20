@@ -1,7 +1,7 @@
 package com.task.browse.data.datasource
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.task.browse.data.datasource.FakeData.fakeFetComics
+import com.task.browse.data.datasource.FakeData.fakeComics
 import com.task.browse.data.datasource.FakeData.getFakeComicRemote
 import com.task.browse.data.datasource.local.ComicLocalDataSource
 import com.task.browse.data.datasource.remote.ComicRemoteDataSource
@@ -48,144 +48,137 @@ class ComicRepositoryTest {
 
     @Test
     fun `Given remote, when getLastComic, then get loading - success`() {
-        //arrange
+        // arrange
         val fakeComicRemote = getFakeComicRemote()
         val fakeComic = Comic()
         coEvery { remoteDataSource.getLastComic() } returns fakeComicRemote
         coEvery { comicMapper.mapToEntity(fakeComicRemote) } returns fakeComic
         coEvery { localDataSource.saveComic(fakeComic) } returns Unit
-        //act
+        // act
         runBlocking {
             sut.getLastComic().collect(collector)
         }
-        //assert
+        // assert
         coVerifyOrder {
             collector.emit(Resource.loading(null))
             collector.emit(Resource.success(data = fakeComic))
         }
     }
 
-
     @Test
     fun `Given remote, when getLastComic, then get loading - error`() {
-        //arrange
+        // arrange
         val throwable = Throwable()
         coEvery { remoteDataSource.getLastComic() } throws throwable
-        //act
+        // act
         runBlocking {
             sut.getLastComic().collect(collector)
         }
-        //assert
+        // assert
         coVerifyOrder {
             collector.emit(Resource.loading(null))
         }
         coVerify(exactly = 0) { localDataSource.saveComic(any()) }
     }
 
-
     @Test
     fun `Given local, when getFavoriteComics, then get loading - success`() {
-        //arrange
-        val fakeComicsLocal = fakeFetComics(10, true)
+        // arrange
+        val fakeComicsLocal = fakeComics(10, true)
         coEvery { localDataSource.getFavoritesComics() } returns fakeComicsLocal
-        //act
+        // act
         runBlocking {
             sut.getFavoriteComics().collect(collectorList)
         }
-        //assert
+        // assert
         coVerifyOrder {
             collectorList.emit(Resource.loading(null))
             collectorList.emit(Resource.success(data = fakeComicsLocal))
         }
         coVerify(exactly = 1) { localDataSource.getFavoritesComics() }
-
     }
 
     @Test
     fun `Given local query, when searchComics, then get loading - success`() {
-        //arrange
-        val fakeComicsLocal = fakeFetComics(10, true)
+        // arrange
+        val fakeComicsLocal = fakeComics(10, true)
         val query = "key"
         coEvery { localDataSource.searchComics(query) } returns fakeComicsLocal
-        //act
+        // act
         runBlocking {
             sut.searchComics(query).collect(collectorList)
         }
-        //assert
+        // assert
         coVerifyOrder {
             collectorList.emit(Resource.loading(null))
             collectorList.emit(Resource.success(data = fakeComicsLocal))
         }
         coVerify(exactly = 1) { localDataSource.searchComics(query) }
-
     }
-
 
     @Test
     fun `Given local, when getAllComics, then get loading - success`() {
-        //arrange
-        val fakeComicsLocal = fakeFetComics(10, true)
+        // arrange
+        val fakeComicsLocal = fakeComics(10, true)
         coEvery { localDataSource.getAllComics() } returns fakeComicsLocal
-        //act
+        // act
         runBlocking {
             sut.getAllComics().collect(collectorList)
         }
-        //assert
+        // assert
         coVerifyOrder {
             collectorList.emit(Resource.loading(null))
             collectorList.emit(Resource.success(data = fakeComicsLocal))
         }
         coVerify(exactly = 1) { localDataSource.getAllComics() }
-
     }
 
     @Test
     fun `Given local comicNumber, when getComicByNumber, then get loading - success`() {
-        //arrange
-        val fakeComicsLocal = fakeFetComics(1, true)[0]
+        // arrange
+        val fakeComicsLocal = fakeComics(1, true)[0]
         val comicNumber = 1
         coEvery { localDataSource.getComicByNumber(comicNumber) } returns fakeComicsLocal
-        //act
+        // act
         runBlocking {
             sut.getComicByNumber(comicNumber).collect(collector)
         }
-        //assert
+        // assert
         coVerifyOrder {
             collector.emit(Resource.loading(null))
             collector.emit(Resource.success(data = fakeComicsLocal))
         }
         coVerify(exactly = 1) { localDataSource.getComicByNumber(comicNumber) }
-
     }
 
     @Test
     fun `Given local comicNumber, when updateFavorite, then get loading - success`() {
-        //arrange
+        // arrange
         val comicNumber = 1
         coEvery { localDataSource.updateFavorite(true, comicNumber) } returns Unit
-        //act
+        // act
         runBlocking {
             sut.updateFavorite(true, comicNumber)
         }
-        //assert
+        // assert
         coVerify(exactly = 1) { localDataSource.updateFavorite(true, comicNumber) }
     }
 
     @Test
     fun `Given Remote, when getPreviousComic, then get loading - success`() {
-        //arrange
+        // arrange
         val fakeComicRemote = getFakeComicRemote()
         val fakeComic = Comic()
         val comicNumber = 1
         coEvery { remoteDataSource.getPreviousComic(comicNumber) } returns fakeComicRemote
         coEvery { comicMapper.mapToEntity(fakeComicRemote) } returns fakeComic
         coEvery { localDataSource.saveComic(fakeComic) } returns Unit
-        //act
+        // act
         runBlocking {
             sut.getPreviousComic(comicNumber).collect(collector)
         }
-        //assert
-        //assert
+        // assert
+        // assert
         coVerifyOrder {
             collector.emit(Resource.loading(null))
             collector.emit(Resource.success(data = fakeComic))
@@ -194,19 +187,18 @@ class ComicRepositoryTest {
 
     @Test
     fun `Given Remote, when getPreviousComic, then get loading - error`() {
-        //arrange
+        // arrange
         val throwable = Throwable()
         val comicNumber = 1
         coEvery { remoteDataSource.getPreviousComic(comicNumber) } throws throwable
-        //act
+        // act
         runBlocking {
             sut.getPreviousComic(comicNumber).collect(collector)
         }
-        //assert
+        // assert
         coVerifyOrder {
             collector.emit(Resource.loading(null))
         }
         coVerify(exactly = 0) { localDataSource.saveComic(any()) }
     }
-
 }

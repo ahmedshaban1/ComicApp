@@ -18,7 +18,7 @@ fun getRemoteModule(baseUrl: String) = module {
     }
 
     factory {
-         GsonBuilder()
+        GsonBuilder()
             .setLenient()
             .create()
     }
