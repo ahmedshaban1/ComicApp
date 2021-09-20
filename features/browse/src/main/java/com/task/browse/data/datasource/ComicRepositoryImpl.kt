@@ -20,14 +20,16 @@ class ComicRepositoryImpl(
     val localDataSource: ComicLocalDataSource,
     val comicMapper: ComicMapper
 ) : ComicRepository {
-    override fun getLastComic(): Flow<Resource<Comic>> {
+    override fun getLastComic(shouldSave:Boolean): Flow<Resource<Comic>> {
         return object : NetworkBoundResource<ComicRemote>() {
             override suspend fun remoteFetch(): ComicRemote {
                 return remoteDataSource.getLastComic()
             }
 
             override suspend fun saveFetchResult(data: ComicRemote) {
-                localDataSource.saveComic(comicMapper.mapToEntity(data))
+                if(shouldSave){
+                    localDataSource.saveComic(comicMapper.mapToEntity(data))
+                }
             }
 
             override suspend fun localFetch(): ComicRemote {
@@ -125,6 +127,10 @@ class ComicRepositoryImpl(
         CoroutineScope(Main).launch {
             localDataSource.updateFavorite(favorite,comicNumber)
         }
+    }
+
+    override suspend fun checkComicFound(comicNumber: Int): Boolean {
+        return localDataSource.checkComicFound(comicNumber)
     }
 
 
