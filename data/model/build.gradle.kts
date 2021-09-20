@@ -7,4 +7,5 @@ plugins {
 dependencies {
     localRoomDependencies()
     api(LibraryDependency.GSON)
+    addTestDependencies()
 }
