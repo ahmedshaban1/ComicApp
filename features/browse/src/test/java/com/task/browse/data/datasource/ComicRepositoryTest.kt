@@ -176,7 +176,7 @@ class ComicRepositoryTest {
         //arrange
         val fakeComicRemote = getFakeComicRemote()
         val fakeComic = Comic()
-        val comicNumber=1
+        val comicNumber = 1
         coEvery { remoteDataSource.getPreviousComic(comicNumber) } returns fakeComicRemote
         coEvery { comicMapper.mapToEntity(fakeComicRemote) } returns fakeComic
         coEvery { localDataSource.saveComic(fakeComic) } returns Unit
@@ -196,7 +196,7 @@ class ComicRepositoryTest {
     fun `Given Remote, when getPreviousComic, then get loading - error`() {
         //arrange
         val throwable = Throwable()
-        val comicNumber=1
+        val comicNumber = 1
         coEvery { remoteDataSource.getPreviousComic(comicNumber) } throws throwable
         //act
         runBlocking {
