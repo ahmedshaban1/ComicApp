@@ -19,7 +19,9 @@ import com.task.remote.data.Resource
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
+    // init ComicsViewModel
     private val viewModel: ComicsViewModel by viewModel()
+    // init adapter and callback
     private val comicsAdapter: ComicsAdapter by lazy {
         ComicsAdapter(interaction = object : ComicsAdapter.Interaction {
             override fun onItemSelected(position: Int, item: Comic) {
@@ -40,6 +42,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         initSearchInput()
     }
 
+    // make edittext isFocusable
     private fun initSearchInput() {
         with(binding.searchET) {
             setIconifiedByDefault(true)
@@ -50,11 +53,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
 
         binding.searchET.setOnQueryTextListener(object : OnQueryTextListener {
+            // search if user type text and click search
             override fun onQueryTextSubmit(query: String): Boolean {
                 viewModel.search(query)
                 return false
             }
-
+            // empty list of user type nothing
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.isEmpty()) {
                     comicsAdapter.submitList(listOf())
@@ -64,6 +68,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         })
     }
 
+    // handle search results
     private fun initFavoritesComicsObservable() {
         viewModel.searchComicStateFlow.asLiveData().observe(viewLifecycleOwner, {
             if (it.status == Resource.Status.SUCCESS)
@@ -71,6 +76,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         })
     }
 
+    // handle results and empty state
     private fun validateList(searchList: List<Comic>) {
         if (searchList.isNotEmpty())
             comicsAdapter.submitList(searchList)

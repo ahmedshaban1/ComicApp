@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-// Model
+// Model for remote response
 data class ComicRemote(
     @SerializedName("alt")
     var alt: String?,

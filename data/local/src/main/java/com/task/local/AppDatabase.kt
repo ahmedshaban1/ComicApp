@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.task.local.dao.ComicDao
 import com.task.model.Comic
-
+// database class for creating local database
 @Database(entities = [Comic::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun comicDao(): ComicDao

@@ -11,16 +11,19 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 
+// base class for evey activity
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), UiCommunicator {
 
     private var progress: Dialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // inflate view
         _binding = bindingInflater.invoke(layoutInflater)
         setContentView(requireNotNull(_binding).root)
         setUp()
     }
 
+    // show dialog loading
     override fun showLoading() {
         progress?.dismiss() ?: kotlin.run {
             progress = progressDialog(this)
@@ -32,6 +35,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), UiCommunica
         progress?.dismiss()
     }
 
+    // handle error message
     override fun handleMessages(messageType: MessageType) {
         hideLoading()
         var message = ErrorMessageHelper.getMessage(messageType.code)
@@ -48,15 +52,15 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), UiCommunica
         }
     }
 
-    // all of this function needs future impl
-
     protected abstract fun setUp()
     private var _binding: ViewBinding? = null
     abstract val bindingInflater: (LayoutInflater) -> VB
 
+    @Suppress("UNCHECKED_CAST")
     protected val binding: VB
         get() = _binding as VB
 
+    // create progress Dialog
     private fun progressDialog(context: Context): Dialog {
         val dialog = Dialog(context)
         val inflate = View.inflate(context, R.layout.progress_dialog, null)
@@ -68,6 +72,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), UiCommunica
         return dialog
     }
 
+    // clearing binding reference
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

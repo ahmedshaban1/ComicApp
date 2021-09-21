@@ -17,8 +17,10 @@ import com.task.remote.data.Resource
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
-
+    // init ComicsViewModel
     private val viewModel: ComicsViewModel by viewModel()
+
+    // init adapter and callback
     private val comicsAdapter: ComicsAdapter by lazy {
         ComicsAdapter(interaction = object : ComicsAdapter.Interaction {
             override fun onItemSelected(position: Int, item: Comic) {
@@ -41,6 +43,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.getComics()
     }
 
+    // handle new comic status
     private fun initGetPreviousComicObservable() {
         viewModel.previousComicStateFlow.asLiveData().observe(viewLifecycleOwner, {
             when (it.status) {
@@ -50,6 +53,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 Resource.Status.SUCCESS -> {
                     uiCommunicator?.hideLoading()
                     it.data?.let { comic ->
+                        // add new comic at end of list and go to last position
                         comicsAdapter.add(comic)
                         binding.comicsRv.smoothScrollToPosition(comicsAdapter.itemCount)
                     }
@@ -57,11 +61,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 Resource.Status.ERROR -> {
                     it.messageType?.let { it1 -> uiCommunicator?.handleMessages(it1) }
                 }
-                Resource.Status.INIT -> {}
+                Resource.Status.INIT -> {
+                }
             }
         })
     }
 
+    // handle  comics status
     private fun initGetComicsObservable() {
         viewModel.comicsStateFlow.asLiveData().observe(viewLifecycleOwner, {
             when (it.status) {
@@ -77,7 +83,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 Resource.Status.ERROR -> {
                     it.messageType?.let { it1 -> uiCommunicator?.handleMessages(it1) }
                 }
-                Resource.Status.INIT -> {}
+                Resource.Status.INIT -> {
+                }
             }
         })
     }
@@ -95,6 +102,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         initGetPreviousComicLogic()
     }
 
+    // check is adapter has data in list before call get new comic
     private fun initGetPreviousComicLogic() {
         viewModel.comicsStateFlow.value.data?.let {
             var lastNumber = comicsAdapter.getLastItemNumber()

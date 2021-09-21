@@ -15,12 +15,13 @@ import org.koin.core.context.startKoin
 class ComicApp : Application() {
     override fun onCreate() {
         super.onCreate()
+        // init koin di
         startKoin {
             androidLogger()
             androidContext(this@ComicApp)
             modules(listOf(getRemoteModule("http://xkcd.com/"), localModule, comicModule))
         }
-
+        // init notification manger to check if new comic was added
         NotificationAlarm(this).setAlarm(Calendar.getInstance())
     }
 }

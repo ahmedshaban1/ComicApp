@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.task.model.Comic
-
+// comic dao class that hold all comic database operation
 @Dao
 interface ComicDao {
 
@@ -27,6 +27,7 @@ interface ComicDao {
     @Query("select * from Comic where num=:comicNumber limit 1")
     suspend fun getComicByNumber(comicNumber: Int): Comic
 
+    // operation for updating all comic data except favorite
     @Query("UPDATE comic set day=:day , img=:img,link=:link,month=:month,news=:news,safeTitle=:safeTitle,title=:title,transcript=:transcript,year=:year where num=:comicNumber")
     suspend fun update(
         comicNumber: Int,
@@ -41,9 +42,11 @@ interface ComicDao {
         year: String
     )
 
+    // operation for searing in comic table using all comic data
     @Query("select * from Comic where num  LIKE '%' || :query || '%' or  title  LIKE '%' || :query || '%' or safeTitle  LIKE '%' || :query || '%' order by num DESC")
     suspend fun searchComics(query: String): List<Comic>
 
+    // operation for updating  favorite
     @Query("UPDATE comic set isFavorite=:favorite  where num=:comicNumber")
     suspend fun updateFavorite(favorite: Boolean, comicNumber: Int)
 }

@@ -3,6 +3,7 @@ package com.task.browse.data.datasource
 import com.task.model.Comic
 import com.task.model.ComicRemote
 
+// support fake data for testing
 object FakeData {
 
     fun getFakeComicRemote(): ComicRemote {

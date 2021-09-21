@@ -6,7 +6,6 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.adevinta.android.barista.assertion.BaristaListAssertions.assertDisplayedAtPosition
 import com.adevinta.android.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
-import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.task.browse.R
 import com.task.browse.presentation.ui.ComicsViewModel
 import com.task.browse.presentation.ui.favorites.data.FakeData.fakeComics
@@ -51,10 +50,7 @@ class FavoritesFragmentTest : KoinTest {
         startKoin {
             loadKoinModules(listOf(testModule))
         }
-
     }
-
-
 
     @Test
     fun getFavoriteComicsAndSuccess() {

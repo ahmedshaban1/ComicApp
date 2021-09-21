@@ -2,7 +2,7 @@ package com.task.model.comic
 
 import com.task.model.Comic
 import com.task.model.ComicRemote
-
+// MapperClass to map ComicRemote format to comic format
 class ComicMapper {
     fun mapToEntity(comicRemote: ComicRemote): Comic {
         return Comic(

@@ -22,9 +22,9 @@ class ComicMapperTest {
     @Test
     fun `Given comic remote, when mapToEntity, then get Comic `() {
 
-        //act
+        // act
         val results = ComicMapper().mapToEntity(comicRemote = fakeComic)
-        //assert
+        // assert
         assertEquals("alt", results.alt)
         assertEquals("SafeTitle", results.safeTitle)
         assertEquals("Title", results.title)
@@ -36,6 +36,5 @@ class ComicMapperTest {
         assertEquals("", results.img)
         assertEquals("", results.link)
         assertEquals(1, results.num)
-
     }
 }

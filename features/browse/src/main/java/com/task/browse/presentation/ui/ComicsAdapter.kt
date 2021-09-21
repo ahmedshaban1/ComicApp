@@ -20,6 +20,7 @@ class ComicsAdapter(
             parent,
             false
         )
+        // get 90% from layout width
         binding.root.layoutParams = ViewGroup.LayoutParams((parent.width * 0.9).toInt(), ViewGroup.LayoutParams.MATCH_PARENT)
         return ComicsAdapterVH(
             binding,
@@ -39,6 +40,7 @@ class ComicsAdapter(
         return dataList.size
     }
 
+    // update adapter list
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(newList: List<Comic>) {
         dataList.clear()
@@ -46,11 +48,13 @@ class ComicsAdapter(
         notifyDataSetChanged()
     }
 
+    // get last comic number to get the previous one from api
     fun getLastItemNumber(): Int {
         return if (dataList.isEmpty()) -1
         else dataList.last().num
     }
 
+    // add new comic to list
     fun add(newComic: Comic) {
         dataList.add(newComic)
         notifyItemInserted(dataList.size - 1)

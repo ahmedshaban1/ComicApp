@@ -51,7 +51,6 @@ class HomeFragmentTest : KoinTest {
         startKoin {
             loadKoinModules(listOf(testModule))
         }
-
     }
 
     @Test
@@ -114,5 +113,4 @@ class HomeFragmentTest : KoinTest {
     fun teardown() {
         stopKoin()
     }
-
 }

@@ -14,11 +14,14 @@ import com.task.common.Constants
 import com.task.common.openActivity
 import com.task.common.visible
 import com.task.model.Comic
-import com.task.remote.data.Resource.Status.*
+import com.task.remote.data.Resource.Status.SUCCESS
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
+    // init ComicsViewModel
     private val viewModel: ComicsViewModel by viewModel()
+
+    // init adapter and callback
     private val comicsAdapter: ComicsAdapter by lazy {
         ComicsAdapter(interaction = object : ComicsAdapter.Interaction {
             override fun onItemSelected(position: Int, item: Comic) {
@@ -38,6 +41,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
         initFavoritesComicsObservable()
     }
 
+    // update list after back from any place
     override fun onResume() {
         super.onResume()
         viewModel.getFavoritesComics()
@@ -51,6 +55,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
         }
     }
 
+    // handle comics status
     private fun initFavoritesComicsObservable() {
         viewModel.favoritesComicStateFlow.asLiveData().observe(viewLifecycleOwner, {
             if (it.status == SUCCESS)
@@ -58,6 +63,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
         })
     }
 
+    // handle empty state
     private fun validateList(favComics: List<Comic>) {
         if (favComics.isNotEmpty())
             comicsAdapter.submitList(favComics)

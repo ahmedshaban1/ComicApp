@@ -1,5 +1,6 @@
 package com.task.browse.presentation.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.asLiveData
@@ -22,6 +23,8 @@ class ComicDetailsActivity : BaseActivity<ActivityComicDetailsBinding>() {
         getComicObservable()
     }
 
+    // show back button in actionbar
+    @SuppressLint("RestrictedApi")
     private fun initActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)

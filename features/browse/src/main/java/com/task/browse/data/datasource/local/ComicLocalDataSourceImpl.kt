@@ -2,7 +2,7 @@ package com.task.browse.data.datasource.local
 
 import com.task.local.dao.ComicDao
 import com.task.model.Comic
-
+// class thia implementing  all local comic operations
 class ComicLocalDataSourceImpl(private val local: ComicDao) : ComicLocalDataSource {
     override suspend fun getAllComics(): List<Comic> {
         return local.getAllComics()

@@ -14,6 +14,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
+// koin module to provide all comic dependencies
 @ExperimentalCoroutinesApi
 val comicModule = module {
     viewModel { ComicsViewModel(get(), get(), get(), get(), get(), get()) }

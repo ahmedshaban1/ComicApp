@@ -3,7 +3,7 @@ package com.task.browse.domain
 import com.task.model.Comic
 import com.task.remote.data.Resource
 import kotlinx.coroutines.flow.Flow
-
+// interface class contains all comic operation
 interface ComicRepository {
     fun getLastComic(shouldSave: Boolean = true): Flow<Resource<Comic>>
     fun getFavoriteComics(): Flow<Resource<List<Comic>>>

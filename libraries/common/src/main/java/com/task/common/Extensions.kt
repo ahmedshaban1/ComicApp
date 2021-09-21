@@ -13,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import com.task.common.Constants.EXPLORATIONURL
 
+// load image from url or res id
 fun ImageView.loadImage(url: Any?) {
     url?.let {
         if (url is Int) {
@@ -30,20 +31,24 @@ fun ImageView.loadImage(url: Any?) {
     }
 }
 
+// make view visible extension
 fun View.visible() {
     visibility = View.VISIBLE
 }
 
+// replace empty value with n/a extension
 fun String.comicValueFormat(preFix: String): String {
     val value = if (this.isEmpty()) "N/A" else this
     return "$preFix\n$value"
 }
 
+// open wev browser extension
 fun AppCompatActivity.openWebBrowser(comicNumber: Int) {
     val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("$EXPLORATIONURL$comicNumber"))
     startActivity(browserIntent)
 }
 
+// share data action extension
 fun AppCompatActivity.shareData(
     title: String,
     imageUrl: String,
@@ -64,6 +69,7 @@ fun AppCompatActivity.shareData(
     startActivity(Intent.createChooser(shareIntent, resources.getText(R.string.send_to)))
 }
 
+// open activity extension
 fun Context.openActivity(className: Class<*>, bundle: Bundle? = null, closeAll: Boolean = false) {
 
     val intent = Intent(this, className)
@@ -77,6 +83,7 @@ fun Context.openActivity(className: Class<*>, bundle: Bundle? = null, closeAll: 
     startActivity(intent)
 }
 
+// toggle floating button status  extension
 fun FloatingActionButton.changeState(isFavorite: Boolean) {
     if (isFavorite) {
         setImageResource(R.drawable.ic_heart)

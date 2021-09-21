@@ -7,6 +7,7 @@ import com.task.remote.data.Resource.Status.SUCCESS
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.zip
 
+// useCase to get last comic from remote merged with local comics without duplication
 class GetComicsUseCase(private val repository: ComicRepository) {
     operator fun invoke(): Flow<Resource<List<Comic>>> {
         return repository.getAllComics().zip(repository.getLastComic()) { f1, f2 ->

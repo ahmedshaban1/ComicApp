@@ -20,14 +20,17 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class LastComicService : JobIntentService() {
+    // get comic repo
     private val repo: ComicRepository by inject()
 
     override fun onHandleWork(intent: Intent) {
         Log.e("onHandleWork", "onHandleWork")
         CoroutineScope(Dispatchers.IO).launch {
+            // get last comic from remote with value should save equals false avoiding overriding data in database
             val lastComic = repo.getLastComic(false)
             lastComic.collect {
                 if (it.status == SUCCESS) {
+                    // check if comic not in local database then show notification
                     if (!repo.checkComicFound(it.data?.num ?: 0)) {
                         // fire notification
                         createNotificationChannel(this@LastComicService)
@@ -38,8 +41,8 @@ class LastComicService : JobIntentService() {
         }
     }
 
+    // create notfication channel for android >= O
     private fun createNotificationChannel(context: Context) {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(
                 NOTIFICATION_CHANNEL_ID,
@@ -51,6 +54,7 @@ class LastComicService : JobIntentService() {
         }
     }
 
+    // create notification with comic title
     private fun notifyNotification(context: Context, data: Comic) {
         with(NotificationManagerCompat.from(context)) {
             val build = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)

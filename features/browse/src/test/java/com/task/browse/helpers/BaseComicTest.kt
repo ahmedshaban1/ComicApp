@@ -11,6 +11,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.FlowCollector
 import org.junit.Rule
 
+// base class contains basic values for each comic operation test
 @ExperimentalCoroutinesApi
 open class BaseComicTest {
     @get:Rule

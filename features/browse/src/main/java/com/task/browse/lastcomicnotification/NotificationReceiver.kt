@@ -9,6 +9,7 @@ import java.util.*
 
 class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
+        // re-init alarm after boot completed
         if (intent?.action.equals("android.intent.action.BOOT_COMPLETED")) {
             // init alarm again
             NotificationAlarm(context).setAlarm(calendar = Calendar.getInstance())

@@ -1,7 +1,7 @@
 package com.task.browse.data.datasource.local
 
 import com.task.model.Comic
-
+// interface class for all local comic operations
 interface ComicLocalDataSource {
     suspend fun getAllComics(): List<Comic>
     suspend fun getLastComic(): Comic

@@ -2,9 +2,9 @@ import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
 
 
-/*
-Define common dependencies, so they can be easily updated across feature modules
- */
+
+// Define common dependencies for testing, so they can be easily updated across feature modules
+
 fun DependencyHandler.addTestDependencies() {
     testImplementation(TestLibraryDependency.JUNIT)
     testImplementation(TestLibraryDependency.KOIN)
@@ -28,7 +28,7 @@ fun DependencyHandler.addTestDependencies() {
 
 
 }
-
+// Define common dependencies, so they can be easily updated across feature modules
 fun DependencyHandler.commonDevelopmentDependencies() {
     api(LibraryDependency.APPCOMPAT)
     api(LibraryDependency.CONSTRAINT)
@@ -42,7 +42,7 @@ fun DependencyHandler.commonDevelopmentDependencies() {
 
 
 }
-
+// Define lifeCycle dependencies  for testing, so they can be easily updated across feature modules
 fun DependencyHandler.lifeCycleDependencies() {
     api(LibraryDependency.LIFECYCLEEXTENSIONS)
     api(LibraryDependency.COREKTX)
@@ -51,13 +51,14 @@ fun DependencyHandler.lifeCycleDependencies() {
 
 
 }
-
+// Define di dependencies  for testing, so they can be easily updated across feature modules
 fun DependencyHandler.diDependencies() {
     api(LibraryDependency.KOIN)
     api(LibraryDependency.KOIN_SCOPE)
     api(LibraryDependency.KOIN_VIEWMODEL)
 }
 
+// Define network dependencies  for testing, so they can be easily updated across feature modules
 fun DependencyHandler.networkDependencies() {
     api(LibraryDependency.RETROFITCOROUTINESADAPTER)
     api(LibraryDependency.GSON)
@@ -69,7 +70,7 @@ fun DependencyHandler.networkDependencies() {
 
 }
 
-
+// Define room dependencies  for testing, so they can be easily updated across feature modules
 fun DependencyHandler.localRoomDependencies() {
     kapt(LibraryDependency.roomCompiler)
     api(LibraryDependency.roomKtx)
